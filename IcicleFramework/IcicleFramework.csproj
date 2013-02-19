@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{F7838702-59A4-46F0-9580-4C04A037CA5D}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IcicleFramework</RootNamespace>
+    <AssemblyName>IcicleFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows</XnaPlatform>
+    <XnaProfile>HiDef</XnaProfile>
+    <XnaCrossPlatformGroupID>00e7878f-b9b4-45f9-9a84-5c4297ce8f49</XnaCrossPlatformGroupID>
+    <XnaOutputType>Library</XnaOutputType>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>false</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>true</XnaCompressContent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FarseerPhysicsXNA">
+      <HintPath>..\References\FarseerPhysicsXNA.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Video, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Avatar, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Storage, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mscorlib">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectMercury">
+      <HintPath>..\References\ProjectMercury.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="TiledLib">
+      <HintPath>..\References\TiledLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\CompositeGameAction.cs" />
+    <Compile Include="Actions\Damage\BasicDamageAction.cs" />
+    <Compile Include="Actions\Destruction\DestroyGameObjectAction.cs" />
+    <Compile Include="Actions\GameAction.cs" />
+    <Compile Include="Actions\IGameAction.cs" />
+    <Compile Include="Actions\Movement\AngularBasedMovementAction.cs" />
+    <Compile Include="Actions\Movement\DirectAngularMovementAction.cs" />
+    <Compile Include="Actions\Movement\DirectMovementAction.cs" />
+    <Compile Include="Actions\Movement\DirectionBasedMovementAction.cs" />
+    <Compile Include="Actions\ParallelGameAction.cs" />
+    <Compile Include="Actions\Particles\EmitParticleAction.cs" />
+    <Compile Include="Actions\Physics\PhysicsImpulseAction.cs" />
+    <Compile Include="Actions\SequenceGameAction.cs" />
+    <Compile Include="Behaviors\Destroy\BaseDestructionBehavior.cs" />
+    <Compile Include="Cameras\BasicCamera2D.cs" />
+    <Compile Include="Cameras\Camera2D.cs" />
+    <Compile Include="Cameras\Camera2DFS.cs" />
+    <Compile Include="Cameras\CameraController.cs" />
+    <Compile Include="Cameras\CameraManager.cs" />
+    <Compile Include="Cameras\ICamera.cs" />
+    <Compile Include="Collision\BoundingBox2D.cs" />
+    <Compile Include="Collision\CollisionList.cs" />
+    <Compile Include="Collision\CollisionManager.cs" />
+    <Compile Include="Collision\CollisionWorld.cs" />
+    <Compile Include="Collision\QuadTree.cs" />
+    <Compile Include="Components\Behaviors\BaseBehavior.cs" />
+    <Compile Include="Components\Behaviors\BehaviorComponent.cs" />
+    <Compile Include="Components\Behaviors\CollisionBehaviors\PhysicsCollisionBehavior.cs" />
+    <Compile Include="Components\Behaviors\Death\BaseDeathBehavior.cs" />
+    <Compile Include="Components\Behaviors\IBehavior.cs" />
+    <Compile Include="Components\Behaviors\IBehaviorComponent.cs" />
+    <Compile Include="Components\Damage\DamageComponent.cs" />
+    <Compile Include="Components\Damage\IDamageComponent.cs" />
+    <Compile Include="Components\EntityState\IEntityState.cs" />
+    <Compile Include="Components\EntityState\IEntityStateComponent.cs" />
+    <Compile Include="Components\EntityState\IEntityStateModifier.cs" />
+    <Compile Include="Components\EntityState\IEntityStateObject.cs" />
+    <Compile Include="Components\Input\BaseInputComponent.cs" />
+    <Compile Include="Components\Input\BasePlayerInputComponent.cs" />
+    <Compile Include="Components\Input\IInputComponent.cs" />
+    <Compile Include="Components\Input\IPlayerInputComponent.cs" />
+    <Compile Include="Components\ISubComponent.cs" />
+    <Compile Include="Components\Movement\IMovementComponent.cs" />
+    <Compile Include="Components\Movement\MovementComponent.cs" />
+    <Compile Include="DebugComponents\GameObjectInfoDisplay.cs" />
+    <Compile Include="DeepCopyExtensions.cs" />
+    <Compile Include="GameServices\CameraServices\ICameraService.cs" />
+    <Compile Include="GameServices\Factories\ActionFactory.cs" />
+    <Compile Include="GameServices\ActionManager.cs" />
+    <Compile Include="GameServices\Factories\BehaviorFactory.cs" />
+    <Compile Include="GameServices\HelperServices\IRandomGenerator.cs" />
+    <Compile Include="GameServices\HelperServices\RandomGenerator.cs" />
+    <Compile Include="GameServices\Factories\IActionFactory.cs" />
+    <Compile Include="GameServices\IActionManager.cs" />
+    <Compile Include="GameServices\Factories\IBehaviorFactory.cs" />
+    <Compile Include="GameServices\ILayerManager.cs" />
+    <Compile Include="GameServices\PhysicsServices\IPhysicsFactory.cs" />
+    <Compile Include="GameServices\ParticleServices\IParticleManager.cs" />
+    <Compile Include="GameServices\ParticleServices\ParticleManager.cs" />
+    <Compile Include="GameServices\PhysicsServices\PhysicsFactory.cs" />
+    <Compile Include="IDeepCopyable.cs" />
+    <Compile Include="IInitializable.cs" />
+    <Compile Include="INameable.cs" />
+    <Compile Include="IPauseable.cs" />
+    <Compile Include="GameServices\LayerManager.cs" />
+    <Compile Include="Physics\FarseerDeserialization.cs" />
+    <Compile Include="Collision\ICollidable.cs" />
+    <Compile Include="Collision\ICollision.cs" />
+    <Compile Include="Collision\ICollisionManager.cs" />
+    <Compile Include="Physics\IPhysicsManager.cs" />
+    <Compile Include="Physics\PhysicsManager.cs" />
+    <Compile Include="Physics\PhysicsWorld.cs" />
+    <Compile Include="Collision\QuadNode.cs" />
+    <Compile Include="Collision\QuadTreeOld.cs" />
+    <Compile Include="Collision\RectangleExtensions.cs" />
+    <Compile Include="ColorExtensions.cs" />
+    <Compile Include="Components\BaseComponent.cs" />
+    <Compile Include="Components\Collision\CollisionComponent.cs" />
+    <Compile Include="Components\Collision\ICollisionComponent.cs" />
+    <Compile Include="Components\IScalable.cs" />
+    <Compile Include="Components\Physics\PhysicsComponent.cs" />
+    <Compile Include="Components\Physics\IPhysicsComponent.cs" />
+    <Compile Include="Components\Gauges\ColorChangeGaugeComponent.cs" />
+    <Compile Include="Components\Gauges\GaugeComponent.cs" />
+    <Compile Include="Components\Gauges\HealthGaugeComponent.cs" />
+    <Compile Include="Components\Gauges\IGaugeComponent.cs" />
+    <Compile Include="Components\Health\HealthComponent.cs" />
+    <Compile Include="Components\Health\IHealthComponent.cs" />
+    <Compile Include="Components\Health\IntervalInvincibleHealthComponent.cs" />
+    <Compile Include="Components\Health\InvincibleHealthComponent.cs" />
+    <Compile Include="Components\IBaseComponent.cs" />
+    <Compile Include="Components\Physics\SingleBodyPhysicsComponent.cs" />
+    <Compile Include="Components\Renderable\IRenderComponent.cs" />
+    <Compile Include="Components\Renderable\RenderComponent.cs" />
+    <Compile Include="Components\Scaling\IScalingComponent.cs" />
+    <Compile Include="Components\Scaling\ScalingComponent.cs" />
+    <Compile Include="ConvertUnits.cs" />
+    <Compile Include="DebugComponents\FrameRateCounter.cs" />
+    <Compile Include="Entities\GameObject.cs" />
+    <Compile Include="Entities\IDestroyable.cs" />
+    <Compile Include="Entities\IGameObject.cs" />
+    <Compile Include="EnumHelper.cs" />
+    <Compile Include="FarseerUserData.cs" />
+    <Compile Include="GameServices\ComponentFactory.cs" />
+    <Compile Include="GameServices\Factories\GameObjectFactory.cs" />
+    <Compile Include="GameServices\GameObjectManager.cs" />
+    <Compile Include="GameServices\GameService.cs" />
+    <Compile Include="GameServices\IComponentFactory.cs" />
+    <Compile Include="GameServices\Factories\IGameObjectFactory.cs" />
+    <Compile Include="GameServices\IGameObjectManager.cs" />
+    <Compile Include="GameServices\Factories\IRenderableFactory.cs" />
+    <Compile Include="GameServices\Factories\RenderableFactory.cs" />
+    <Compile Include="GameServices\IGameService.cs" />
+    <Compile Include="GameServices\PlayerManager.cs" />
+    <Compile Include="GameServices\GameServiceManager.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="IComposite.cs" />
+    <Compile Include="IDrawableObject.cs" />
+    <Compile Include="ILoadable.cs" />
+    <Compile Include="Inputs\IInputHandler.cs" />
+    <Compile Include="Inputs\InputCommand.cs" />
+    <Compile Include="Inputs\InputConfiguration.cs" />
+    <Compile Include="Inputs\InputHandler.cs" />
+    <Compile Include="Inputs\LogicalPlayerIndex.cs" />
+    <Compile Include="Pooling\IPoolable.cs" />
+    <Compile Include="IPositional.cs" />
+    <Compile Include="Pooling\IPool.cs" />
+    <Compile Include="Pooling\MultiTypePool.cs" />
+    <Compile Include="Pooling\Pool.cs" />
+    <Compile Include="Renderables\AnimatedSprite.cs" />
+    <Compile Include="Renderables\BaseRenderable.cs" />
+    <Compile Include="Renderables\Animation\SpriteAnimation.cs" />
+    <Compile Include="Renderables\Animation\IAnimation.cs" />
+    <Compile Include="Renderables\IAnimatedSprite.cs" />
+    <Compile Include="Renderables\IRenderable.cs" />
+    <Compile Include="Renderables\Sprite.cs" />
+    <Compile Include="Inputs\Player.cs" />
+    <Compile Include="IUpdateable.cs" />
+    <Compile Include="IXmlBuildable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RectangleF.cs" />
+    <Compile Include="Renderables\ITextRenderable.cs" />
+    <Compile Include="Renderables\ITextured.cs" />
+    <Compile Include="Renderables\SingleColorRenderable.cs" />
+    <Compile Include="Renderables\TextRenderable.cs" />
+    <Compile Include="Renderables\TexturedRenderable.cs" />
+    <Compile Include="Rendering\IRenderer.cs" />
+    <Compile Include="Rendering\Renderer.cs" />
+    <Compile Include="Rendering\ResolutionManager.cs" />
+    <Compile Include="TypeExtensions.cs" />
+    <Compile Include="Vector2Extensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Behaviors\SceneBehaviors\" />
+    <Folder Include="Components\Metadata\" />
+    <Folder Include="GameScreens\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!--
+      To modify your build process, add your task inside one of the targets below and uncomment it. 
+      Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+    -->
+</Project>

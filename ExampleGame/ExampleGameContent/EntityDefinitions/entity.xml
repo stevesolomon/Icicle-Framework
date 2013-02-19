@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<entities>
+  <entity name="player">
+    <components>
+      <component type="IBehaviorComponent" class="IcicleFramework.Components.Behaviors.BehaviorComponent">
+        <behaviors>
+          <behavior type="IBehavior" class="ExampleGame.Components.Behaviors.PlayerPaddleBehavior" name="paddleBehavior">
+            <velocity x="30" y="30"/>
+          </behavior>
+        </behaviors>
+      </component>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="AnimatedSprite" class="IcicleFramework.Renderables.AnimatedSprite" name="paddle">
+            <asset>paddle</asset>
+            <color>FFFFFFFF</color>
+            <numRows>1</numRows>
+            <numCols>6</numCols>
+            <animations>
+              <animation name="default">
+                <startIndex>0</startIndex>
+                <totalFrames>4</totalFrames>
+                <looping>true</looping>
+                <framesPerSecond>4</framesPerSecond>
+              </animation>
+              <animation name="oneLifeLeft">
+                <startIndex>4</startIndex>
+                <totalFrames>2</totalFrames>
+                <looping>true</looping>
+                <framesPerSecond>2</framesPerSecond>
+              </animation>
+            </animations>
+          </renderable>
+        </renderables>
+      </component>
+      <component type="IPhysicsComponent" class="IcicleFramework.Components.Physics.SingleBodyPhysicsComponent">
+        <bodies>
+          <body bodyType="dynamic" name="body" primary="true">
+            <restitution>1</restitution>
+            <linearDamping>5</linearDamping>
+            <friction>0</friction>
+            <shape type="box">
+              <width>80</width>
+              <height>20</height>
+              <mass>1000</mass>
+            </shape>
+          </body>
+        </bodies>
+        <joints>
+          <joint type="FixedPrismatic">
+            <bodyA>body</bodyA>
+            <lowerLimit>0</lowerLimit>
+            <upperLimit>800</upperLimit>
+            <axis x="1" y="0" />
+            <worldAnchorA x="240" y="660"/>
+          </joint>
+        </joints>
+      </component>
+      <component type="IScoreComponent" class="ExampleGame.Components.Score.ScoreComponent" />
+    </components>
+    <metadata>
+      <add name="player" />
+      <add name="lives" value="3" />
+    </metadata>
+  </entity>
+
+  <entity name="ball">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextured" class="IcicleFramework.Renderables.Sprite" name="ball">
+            <asset>ball</asset>
+          </renderable>
+        </renderables>
+      </component>
+      <component type="IDamageComponent" class="IcicleFramework.Components.Damage.DamageComponent">
+        <damage>1</damage>
+      </component>
+      <component type="IBehaviorComponent" class="IcicleFramework.Components.Behaviors.BehaviorComponent">
+        <behaviors>
+          <behavior type="IBehavior" class="ExampleGame.Components.Behaviors.BallCollisionBehavior" name="ballCollisionBehavior" />
+          <behavior type="IBehavior" class="ExampleGame.Components.Behaviors.BallBehavior" name="ballIdleBehavior">
+            <zeroVelocityTime>0.5</zeroVelocityTime>
+            <helperImpulse>16</helperImpulse>
+          </behavior>
+        </behaviors>
+      </component>
+      <component type="IPhysicsComponent" class="IcicleFramework.Components.Physics.SingleBodyPhysicsComponent">
+        <bodies>
+          <body bodyType="dynamic" name="ball">
+            <restitution>1</restitution>
+            <linearDamping>0</linearDamping>
+            <friction>0</friction>
+            <fixedRotation>true</fixedRotation>
+            <shape type="circle">
+              <radius>8</radius>
+            </shape>
+          </body>
+        </bodies>
+      </component>
+    </components>
+    <metadata>
+      <add name="ball" />
+    </metadata>
+  </entity>
+
+  <entity name="hudleft">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextured" class="IcicleFramework.Renderables.SingleColorRenderable" name="leftBorder">
+            <color>FF00FF00</color>
+            <size x="240" y="720"/>
+          </renderable>
+          <renderable type="ITextRenderable" class="IcicleFramework.Renderables.TextRenderable" name="livesText">
+            <color>FF000000</color>
+            <font>menufont</font>
+            <offset x="80" y="140" />
+          </renderable>
+          <renderable type="ITextRenderable" class="IcicleFramework.Renderables.TextRenderable" name="scoreText">
+            <color>FF000000</color>
+            <font>menufont</font>
+            <offset x="80" y="100" />
+          </renderable>
+        </renderables>
+      </component>
+      <component type="IBehaviorComponent" class="IcicleFramework.Components.Behaviors.BehaviorComponent">
+        <behaviors>
+         <!-- <behavior type="HUDLivesBehavior" class="ExampleGame.Components.Behaviors.HUDLivesBehavior">
+            <baseText>Player Lives: {0}</baseText>
+          </behavior> -->
+          <behavior type="HUDScoreBehavior" class="ExampleGame.Components.Behaviors.HUD.HUDScoreBehavior">
+            <baseText>Player Score: {0}</baseText>
+            <renderableName>scoreText</renderableName>
+          </behavior>
+        </behaviors>
+      </component>
+      <component type="IPhysicsComponent" class="IcicleFramework.Components.Physics.SingleBodyPhysicsComponent">
+        <bodies>
+          <body bodyType="static" name="hud">
+            <friction>0</friction>
+            <restitution>1</restitution>
+            <shape type="box">
+              <width>240</width>
+              <height>720</height>
+            </shape>
+          </body>
+        </bodies>
+      </component>
+    </components>
+  </entity>
+
+  <entity name="hudright">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextured" class="IcicleFramework.Renderables.SingleColorRenderable" name="rightBorder">
+            <color>FF00FF01</color>
+            <size x="240" y="720"/>
+          </renderable>
+        </renderables>
+      </component>
+      <component type="IPhysicsComponent" class="IcicleFramework.Components.Physics.SingleBodyPhysicsComponent">
+        <bodies>
+          <body bodyType="static" name="hudright">
+            <friction>0</friction>
+            <restitution>1</restitution>
+            <shape type="box">
+              <width>240</width>
+              <height>720</height>
+            </shape>
+          </body>
+        </bodies>
+      </component>
+    </components>
+  </entity>
+
+  <entity name="bottom">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderable type="ITextured" class="IcicleFramework.Renderables.SingleColorRenderable" name="rightBorder">
+          <color>FFFF0000</color>
+          <size x="800" y="20"/>
+        </renderable>
+      </component>      
+      <component type="IPhysicsComponent" class="IcicleFramework.Components.Physics.SingleBodyPhysicsComponent">
+        <bodies>
+          <body bodyType="static" name="bottom">
+            <shape type="box">
+              <width>800</width>
+              <height>20</height>
+            </shape>
+          </body>
+        </bodies>
+      </component>
+    </components>
+    <metadata>
+      <add name="bottom" />
+    </metadata>
+  </entity>
+
+  <entity name="top">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextured" class="IcicleFramework.Renderables.SingleColorRenderable" name="top">
+            <color>FFFF0000</color>
+            <size x="800" y="20"/>
+          </renderable>
+        </renderables>
+      </component>
+      <component type="IPhysicsComponent" class="IcicleFramework.Components.Physics.SingleBodyPhysicsComponent">
+        <bodies>
+          <body bodyType="static" name="bottom">
+            <shape type="box">
+              <width>800</width>
+              <height>20</height>
+            </shape>
+          </body>
+        </bodies>
+      </component>
+    </components>
+  </entity>
+
+  <entity name="gameover">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextRenderable" class="IcicleFramework.Renderables.TextRenderable" name="gameover">
+            <color>FFFF0000</color>
+            <font>menufont</font>
+            <text>G A M E   O V E R</text>
+            <offset x="0" y="0" />
+          </renderable>
+        </renderables>
+      </component>      
+    </components>
+    <metadata>
+      <add name="gameover" />
+    </metadata>
+  </entity>
+
+  <entity name="youwin">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextRenderable" class="IcicleFramework.Renderables.TextRenderable" name="youwin">
+            <color>FFFF0000</color>
+            <font>menufont</font>
+            <text>Y O U   W I N!</text>
+            <offset x="0" y="0" />
+          </renderable>
+        </renderables>
+      </component>      
+    </components>
+    <metadata>
+      <add name="youwin" />
+    </metadata>
+  </entity>
+
+  <entity name="brick">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextured" class="IcicleFramework.Renderables.SingleColorRenderable" name="brick">
+            <color>FF00FF00</color>
+            <size x="80" y="20"/>
+          </renderable>
+        </renderables>
+      </component>
+      <component type="IBehaviorComponent" class="IcicleFramework.Components.Behaviors.BehaviorComponent">
+        <behaviors>
+          <behavior type="IBehavior" class="ExampleGame.Components.Behaviors.BrickBehavior" name="brickBehavior" />
+        </behaviors>
+      </component>
+      <component type="IPhysicsComponent" class="IcicleFramework.Components.Physics.SingleBodyPhysicsComponent">
+        <bodies>
+          <body bodyType="static" name="brick">
+            <friction>0</friction>
+            <restitution>1</restitution>
+            <shape type="box">
+              <width>80</width>
+              <height>20</height>
+            </shape>
+          </body>
+        </bodies>
+      </component>
+      <component type="IHealthComponent" class="IcicleFramework.Components.Health.IntervalInvincibleHealthComponent">
+        <maxHealth>1</maxHealth>
+      </component> 
+    </components>
+    <metadata>
+      <add name="brick" />
+      <add name="points" value="10" />
+    </metadata>
+  </entity>
+
+</entities>

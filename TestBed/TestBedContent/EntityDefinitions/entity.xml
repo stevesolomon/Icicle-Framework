@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<entities>
+  <entity name="player">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextured" class="IcicleFramework.Renderables.SingleColorRenderable" name="rightBorder">
+            <color>FF00FF01</color>
+            <size x="64" y="64"/>
+          </renderable>
+        </renderables>
+      </component>
+      <component type="IBehaviorComponent" class="IcicleFramework.Components.Behaviors.BehaviorComponent">
+        <behaviors>
+          <behavior type="IBehavior" class="TestBed.Components.Behaviors.PlayerInputBehavior" name="playerMoveBehavior"/>
+          <behavior type="IBehavior" class="TestBed.Components.Behaviors.PlayerCollisionBehavior" name="playerCollisionBehavior"/>
+        </behaviors>
+      </component>
+      <component type="ICollisionComponent" class="IcicleFramework.Components.Collision.CollisionComponent">
+        <boundingBox>
+          <width>64</width>
+          <height>64</height>
+        </boundingBox>
+      </component> 
+    </components> 
+    <metadata>
+      <add name="player" />
+      <add name="lives" value="3" />
+    </metadata>
+    <layer>PlayerLayer</layer>
+  </entity>
+
+  <entity name="brick">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextured" class="IcicleFramework.Renderables.SingleColorRenderable" name="brick">
+            <color>FF00FF00</color>
+            <size x="80" y="20"/>
+          </renderable>
+        </renderables>
+      </component>
+      <component type="ICollisionComponent" class="IcicleFramework.Components.Collision.CollisionComponent">
+        <boundingBox>
+          <width>80</width>
+          <height>20</height>
+        </boundingBox>
+      </component>
+    </components>
+    <metadata>
+      <add name="brick" />
+    </metadata>
+    <layer>TestLayer</layer>
+  </entity>
+
+  <entity name="brick2">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextured" class="IcicleFramework.Renderables.SingleColorRenderable" name="brick">
+            <color>FF00FF00</color>
+            <size x="160" y="320"/>
+          </renderable>
+        </renderables>
+      </component>
+      <component type="ICollisionComponent" class="IcicleFramework.Components.Collision.CollisionComponent">
+        <boundingBox>
+          <width>160</width>
+          <height>320</height>
+        </boundingBox>
+      </component>
+    </components>
+    <metadata>
+      <add name="brick" />
+    </metadata>
+    <layer>TestLayer2</layer>
+  </entity>
+
+</entities>

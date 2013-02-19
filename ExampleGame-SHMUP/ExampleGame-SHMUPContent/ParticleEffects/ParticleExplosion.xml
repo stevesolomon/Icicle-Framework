@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="ProjectMercury.ParticleEffect">
+    <Name Null="true" />
+    <Author Null="true" />
+    <Description Null="true" />
+    <Emitters>
+      <Item Type="ProjectMercury.Emitters.PointEmitter">
+        <Name>Basic Emitter</Name>
+        <Budget>5000</Budget>
+        <Term>1</Term>
+        <ReleaseQuantity>5</ReleaseQuantity>
+        <Enabled>true</Enabled>
+        <ReleaseSpeed>[12,37]</ReleaseSpeed>
+        <ReleaseColour>
+          <Red>[1,1]</Red>
+          <Green>[1,1]</Green>
+          <Blue>[1,1]</Blue>
+        </ReleaseColour>
+        <ReleaseOpacity>[1,1]</ReleaseOpacity>
+        <ReleaseScale>[8,20]</ReleaseScale>
+        <ReleaseRotation>
+          <Pitch>[0,0]</Pitch>
+          <Yaw>[0,0]</Yaw>
+          <Roll>[0,0]</Roll>
+        </ReleaseRotation>
+        <ParticleTextureAssetPath>Flash</ParticleTextureAssetPath>
+        <BlendMode>Alpha</BlendMode>
+        <Modifiers>
+          <Modifier Type="ProjectMercury.Modifiers.HueShiftModifier">
+            <HueShift>270</HueShift>
+          </Modifier>
+          <Modifier Type="ProjectMercury.Modifiers.OpacityFastFadeModifier">
+            <InitialOpacity>1</InitialOpacity>
+          </Modifier>
+        </Modifiers>
+        <Controllers />
+      </Item>
+      <Item Type="ProjectMercury.Emitters.PointEmitter">
+        <Name>Emitter 3</Name>
+        <Budget>1000</Budget>
+        <Term>1</Term>
+        <ReleaseQuantity>4</ReleaseQuantity>
+        <Enabled>true</Enabled>
+        <ReleaseSpeed>[15,25]</ReleaseSpeed>
+        <ReleaseColour>
+          <Red>[1,1]</Red>
+          <Green>[1,1]</Green>
+          <Blue>[1,1]</Blue>
+        </ReleaseColour>
+        <ReleaseOpacity>[1,1]</ReleaseOpacity>
+        <ReleaseScale>[12,20]</ReleaseScale>
+        <ReleaseRotation>
+          <Pitch>[0,0]</Pitch>
+          <Yaw>[0,0]</Yaw>
+          <Roll>[0,0]</Roll>
+        </ReleaseRotation>
+        <ParticleTextureAssetPath>Flash</ParticleTextureAssetPath>
+        <BlendMode>Add</BlendMode>
+        <Modifiers>
+          <Modifier Type="ProjectMercury.Modifiers.HueShiftModifier">
+            <HueShift>600</HueShift>
+          </Modifier>
+          <Modifier Type="ProjectMercury.Modifiers.OpacityFastFadeModifier">
+            <InitialOpacity>1</InitialOpacity>
+          </Modifier>
+        </Modifiers>
+        <Controllers />
+      </Item>
+    </Emitters>
+  </Asset>
+</XnaContent>

@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<components>
+
+  <!-- ================= -->
+  <!-- Render Components -->
+  <!-- ================= -->
+  <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+    <!-- Renderables Here -->
+  </component>
+
+  <!-- =========== -->
+  <!-- Renderables -->
+  <!-- =========== -->
+  <renderable type="Image" class="IcicleFramework.Renderables.Image">
+    <asset>player</asset>
+    <color>FF0000FF</color>
+    <layer>1</layer>
+    <offset x="100" y="100" />
+    <components>
+      <!-- Renderable Components Here -->
+    </components>
+  </renderable>
+
+  <renderable type="ITextured" class="IcicleFramework.Renderables.SingleColorRenderable" name="leftBorder">
+    <color>FF00FF00</color>
+    <layer>1</layer>
+    <offset x="100" y="100" />
+    <size x="240" y="720"/>
+    <components>
+      <!-- Renderable Components Here -->
+    </components>
+  </renderable>
+
+  <renderable type="ITextRenderable" class="IcicleFramework.Renderables.TextRenderable" name="score">
+    <color>FF000000</color>
+    <layer>1</layer>
+    <offset x="100" y="100" />
+    <font>menufont</font>
+    <text>Player's Score: </text>
+    <components>
+      <!-- Renderable Components Here -->
+    </components>
+  </renderable>
+
+  
+  <!-- ===================== -->
+  <!-- Renderable Components -->
+  <!-- ===================== -->
+  <component type="IAnimationComponent" class="IcicleFramework.Renderables.Components.BasicAnimationComponent">
+    <numRows>1</numRows>
+    <numCols>2</numCols>
+    <fps>0.25</fps>
+  </component>
+  
+  
+  <!-- ==================== -->
+  <!-- Collision Components -->
+  <!-- ==================== -->
+  <component type="ICollisionComponent" class="IcicleFramework.Components.Collision.CollisionComponent">
+    <boundingBox>
+      <width>6</width>
+      <height>10</height>
+    </boundingBox>
+    <priority>0</priority>
+  </component>
+
+
+  <!-- ============================== -->
+  <!-- Collision Behaviour Components -->
+  <!-- ============================== -->
+  <component type="ICollisionBehaviourComponent" class="IcicleFramework.Components.Collision.MirrorVelocityCollisionBehaviourComponent" />
+  
+  
+  
+  <!-- ================= -->
+  <!-- Damage Components -->
+  <!-- ================= -->
+  <component type="IDamageComponent" class="IcicleFramework.Components.Damage.DamageComponent">
+    <damage>100</damage>
+  </component>
+
+  
+  
+  <!-- ================= -->
+  <!-- Health Components -->
+  <!-- ================= -->
+  <component type="IHealthComponent" class="IcicleFramework.Components.Health.IntervalHealthComponent">
+    <maxHealth>100</maxHealth>
+    <currHealth>100</currHealth>
+    <interval>1.0</interval>
+  </component>
+
+
+  <!-- =================== -->
+  <!-- Movement Components -->
+  <!-- =================== -->
+  <component type="IMovementComponent" class="ExampleGame.Components.Movement.PlayerMovementComponent">
+    <movementSpeed>100</movementSpeed>
+  </component>
+
+
+  <!-- ================= -->
+  <!-- Points Components -->
+  <!-- ================= -->
+  <component type="IPointsComponent" class="ExampleGame.Components.Score.PointsOnDeathComponent">
+    <points>100</points>
+  </component>
+
+  <!-- ===================== -->
+  <!-- Projectile Components -->
+  <!-- ===================== -->
+  <component type="IProjectileComponent" class="ExampleGame.Components.Projectile.PlayerProjectileComponent">
+    <projectile type="proj_basic_linear" />
+    <timeBetweenShots>0.5</timeBetweenShots>
+    <maxShots>10</maxShots>
+    <offset x="5" y="5" />
+  </component>
+
+
+  <!-- ================ -->
+  <!-- Gauge Components -->
+  <!-- ================ -->
+  <component type="IGaugeComponent" class="IcicleFramework.Components.Gauges.HealthGaugeComponent">
+    <filledColor>FF00FF00</filledColor>
+    <emptyColor>FFFFFFFF</emptyColor>
+    <renderable type="Image" class="IcicleFramework.Renderables.Image" name="bar">
+      <asset>bar</asset>
+    </renderable>
+    <renderable type="Image" class="IcicleFramework.Renderables.Image" name="border">
+      <asset>border</asset>
+    </renderable>
+    <transitions>
+      <transition threshold="75">
+        <color>FF00FF00</color>
+      </transition>
+      <transition threshold="50">
+        <color>FFFF9912</color>
+      </transition>
+      <transition threshold="0">
+        <color>FFFF0000</color>
+      </transition>
+    </transitions>
+    <offset x="0" y="-12"/>
+  </component>
+  
+  
+  
+</components>

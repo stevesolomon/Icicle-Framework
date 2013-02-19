@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<entities>
+  <entity name="player">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="Sprite" class="IcicleFramework.Renderables.Sprite">
+            <asset>Textures\ship</asset>
+            <color>FFFFFFFF</color>
+            <layer>0.5</layer>
+          </renderable>
+        </renderables>
+      </component>
+      <component type="IHealthComponent" class="IcicleFramework.Components.Health.IntervalInvincibleHealthComponent">
+        <maxHealth>2</maxHealth>
+      </component>
+      <component type="IBehaviorComponent" class="IcicleFramework.Components.Behaviors.BehaviorComponent">
+        <behaviors>
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Players.PlayerShipMovementBehavior" name="playerMoveBehavior" />
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Players.PlayerShipFireBehavior" name="playerFireBehavior">
+            <timeBetweenShots>0.3</timeBetweenShots>
+          </behavior>
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Health.ParticleEffectDeathBehavior" name="deathBehavior">
+            <particleEffectName>SimpleExplosion</particleEffectName>
+          </behavior>
+        </behaviors>
+      </component>
+      <component type="IMovementComponent" class="IcicleFramework.Components.Movement.MovementComponent">
+        <moveVelocity x="75" y="75" />
+        <maxVelocity x="300" y="300" />
+        <velocityDampingPercent x="1" y="1" />
+      </component>
+      <component type="ICollisionComponent" class="IcicleFramework.Components.Collision.CollisionComponent">
+        <boundingBox>
+          <width>24</width>
+          <height>32</height>
+        </boundingBox>
+      </component>
+    </components>
+    <metadata>
+      <add name="player" />
+      <add name="score" value="0" />
+    </metadata>
+    <layer>PlayerLayer</layer>
+  </entity>
+
+  <entity name="enemy">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="Sprite" class="IcicleFramework.Renderables.Sprite">
+            <asset>Textures\ship</asset>
+            <color>FFFFFFFF</color>
+            <layer>0.5</layer>
+            <mirror y="true" x="false" />
+          </renderable>
+        </renderables>
+      </component>
+      <component type="IHealthComponent" class="IcicleFramework.Components.Health.IntervalInvincibleHealthComponent">
+        <maxHealth>1</maxHealth>
+      </component>
+      <component type="IBehaviorComponent" class="IcicleFramework.Components.Behaviors.BehaviorComponent">
+        <behaviors>
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Health.ParticleEffectDeathBehavior" name="deathBehavior">
+            <particleEffectName>SimpleExplosion</particleEffectName>
+          </behavior>
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Enemies.BasicEnemyMovementBehavior" name="movementBehavior" />
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Enemies.BasicEnemyFiringBehavior" name="fireBehavior">
+            <timeBetweenShots>0.5</timeBetweenShots>
+          </behavior>
+        </behaviors>
+      </component>
+      <component type="ICollisionComponent" class="IcicleFramework.Components.Collision.CollisionComponent">
+        <boundingBox>
+          <width>24</width>
+          <height>32</height>
+        </boundingBox>
+      </component>
+      <component type="IMovementComponent" class="IcicleFramework.Components.Movement.MovementComponent">
+        <moveVelocity x="0" y="-200" />
+        <maxVelocity x="0" y="-200" />
+      </component>
+    </components>
+    <metadata>
+      <add name="enemy" />
+    </metadata>
+    <layer>EnemyLayer</layer>
+  </entity>
+
+  <entity name="projectile">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="Sprite" class="IcicleFramework.Renderables.Sprite">
+            <asset>Textures\basicProjectile</asset>
+            <color>FFFFFFFF</color>
+            <layer>0.5</layer>            
+          </renderable>
+        </renderables>
+      </component>
+      <component type="IBehaviorComponent" class="IcicleFramework.Components.Behaviors.BehaviorComponent">
+        <behaviors>
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Projectiles.LinearProjectileMovementBehavior" name="moveBehavior">
+            <moveSpeed>4000</moveSpeed>
+            <angle>270</angle>
+          </behavior>
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Projectiles.BasicProjectileCollisionBehavior" name="collisionBehavior" />
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Projectiles.ProjectileDestructionBehavior" name="destructionBehavior" />
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.ParticleEffectOnDestructionBehavior" name="particleOnDestructionBehavior">
+            <particleEffectName>ParticleExplosion</particleEffectName>
+          </behavior>
+        </behaviors>
+      </component>
+      <component type="ICollisionComponent" class="IcicleFramework.Components.Collision.CollisionComponent">
+        <boundingBox>
+          <width>10</width>
+          <height>10</height>
+        </boundingBox>
+      </component>
+      <component type="IDamageComponent" class="IcicleFramework.Components.Damage.DamageComponent">
+        <damage>1</damage>
+      </component>
+      <component type="IMovementComponent" class="IcicleFramework.Components.Movement.MovementComponent">
+        <moveVelocity x="700" y="700" />
+        <maxVelocity x="700" y="700" />
+      </component>
+    </components>
+    <layer>PlayerLayer</layer>
+  </entity>
+
+  <entity name="EnemySpawner">
+    <components>
+      <component type="IBehaviorComponent" class="IcicleFramework.Components.Behaviors.BehaviorComponent">
+        <behaviors>
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Spawners.BasicEnemySpawnerBehavior" name="enemySpawnerBehavior">
+            <spawnTimeMinimum>1.0</spawnTimeMinimum>
+            <spawnTimeMaximum>2.5</spawnTimeMaximum>
+            <minXSpawnPosition>800</minXSpawnPosition>
+            <maxXSpawnPosition>1220</maxXSpawnPosition>
+            <minYSpawnPosition>-40</minYSpawnPosition>
+            <maxYSpawnPosition>-40</maxYSpawnPosition>
+            <enemyName>enemy</enemyName>
+          </behavior>
+        </behaviors>
+      </component>
+    </components>
+  </entity>
+
+
+  <entity name="ScoreDisplay">
+    <components>
+      <component type="IBehaviorComponent" class="IcicleFramework.Components.Behaviors.BehaviorComponent">
+        <behaviors>
+          <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.UI.UIPlayerScoreBehavior" name="playerScoreBehavior"/>
+        </behaviors>
+      </component>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextRenderable" class="IcicleFramework.Renderables.TextRenderable" name="scoreString">
+            <color>FFFFFFFF</color>
+            <font>Fonts\debugfont</font>
+            <offset x="0" y="0" />
+            <text>Enemies Shot Down: </text>
+          </renderable>
+          <renderable type="ITextRenderable" class="IcicleFramework.Renderables.TextRenderable" name="score">
+            <color>FF00FFFF</color>
+            <font>Fonts\debugfont</font>
+            <offset x="80" y="0" />
+            <text>0</text>
+          </renderable>
+        </renderables>
+      </component>
+    </components>
+  </entity>
+
+  <entity name="GameOverDisplay">
+    <components>
+      <component type="IRenderComponent" class="IcicleFramework.Components.Renderable.RenderComponent">
+        <renderables>
+          <renderable type="ITextRenderable" class="IcicleFramework.Renderables.TextRenderable" name="gameOverString">
+            <color>FFFFFFFF</color>
+            <font>Fonts\debugfont</font>
+            <text>G A M E   O V E R</text>
+          </renderable>
+        </renderables>
+      </component>
+    </components>
+  </entity>
+
+</entities>

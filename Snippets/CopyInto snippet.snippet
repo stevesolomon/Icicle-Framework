@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>SnippetFile1</Title>
+      <Author>Steven</Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>copy</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>healthComp</ID>
+          <ToolTip>healthComp</ToolTip>
+          <Default>healthComp</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>HealthComponent</ID>
+          <ToolTip>HealthComponent</ToolTip>
+          <Default>HealthComponent</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[public override void CopyInto(IBaseComponent newObject)
+{
+    var $healthComp$ = newObject as $HealthComponent$;
+
+    Debug.Assert($healthComp$ != null, "$healthComp$ != null");
+
+    base.CopyInto(newObject);
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

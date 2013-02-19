@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<layerDefinitions>
+  <layers>
+    <layer name="PlayerLayer" />
+    <layer name="EnemyLayer" />
+  </layers>
+  <interactions>
+    <interaction layer1="PlayerLayer" layer2="EnemyLayer" />
+  </interactions>
+</layerDefinitions>
