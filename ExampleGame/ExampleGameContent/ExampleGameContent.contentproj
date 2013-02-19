@@ -45,10 +45,10 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="ProjectMercury">
-      <HintPath>..\..\..\XNA\Mercury Particle Engine\ProjectMercury\ProjectMercury.Windows\bin\x86\Debug\ProjectMercury.dll</HintPath>
+      <HintPath>..\..\References\ProjectMercury.dll</HintPath>
     </Reference>
     <Reference Include="ProjectMercury.ContentPipeline">
-      <HintPath>..\..\..\XNA\Mercury Particle Engine\ProjectMercury\ProjectMercury.ContentPipeline\bin\Debug\ProjectMercury.ContentPipeline.dll</HintPath>
+      <HintPath>..\..\References\ProjectMercury.ContentPipeline.dll</HintPath>
     </Reference>
     <Reference Include="TiledLib">
       <HintPath>..\..\References\TiledLib.dll</HintPath>
