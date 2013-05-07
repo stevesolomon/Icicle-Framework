@@ -130,7 +130,9 @@
     <Compile Include="Behaviors\Spawners\BasicEnemySpawnerBehavior.cs" />
     <Compile Include="Behaviors\UI\UIPlayerScoreBehavior.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="GameServices\ILevelLogicManager.cs" />
     <Compile Include="GameServices\IProjectileManager.cs" />
+    <Compile Include="GameServices\LevelLogicManager.cs" />
     <Compile Include="GameServices\ProjectileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
