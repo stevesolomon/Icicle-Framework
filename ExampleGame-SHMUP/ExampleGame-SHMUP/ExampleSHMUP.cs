@@ -59,8 +59,8 @@ namespace ExampleGameSHMUP
 
             Graphics.ApplyChanges();
 
-           // Components.Add(new FrameRateCounter(this, "Content\\Fonts\\fpsfont", 1f));
-           // Components.Add(new GameObjectInfoDisplay(this, 0.5f, "Content\\Fonts\\debugfont", new Vector2(0f, 25f)));
+            //Components.Add(new FrameRateCounter(this, "Content\\Fonts\\fpsfont", 1f));
+            Components.Add(new GameObjectInfoDisplay(this, 0.5f, "Content\\Fonts\\debugfont", new Vector2(0f, 25f)));
 
 
             ComponentFactory componentFactory = new ComponentFactory();
@@ -107,6 +107,7 @@ namespace ExampleGameSHMUP
             GameServiceManager.AddService(typeof(ILayerManager), new LayerManager("layers.xml", this.Content));
             GameServiceManager.AddService(typeof(IRenderer), renderer);
             GameServiceManager.AddService(typeof(ICameraService), cameraService);
+            GameServiceManager.AddService(typeof(ILevelLogicManager), new LevelLogicManager());
 
             //Initialize the GameServices););
             foreach (IGameService service in GameServiceManager.Services)
@@ -115,23 +116,6 @@ namespace ExampleGameSHMUP
             }
 
             base.Initialize();
-            base.Initialize();
-
-            test = gameObjectFactory.GetGameObject("player", 400f, 400f);
-
-            PlayerManager manager = (PlayerManager)GameServiceManager.GetService(typeof(PlayerManager));
-            Player player = manager.GetPlayer(LogicalPlayerIndex.One);
-            test.UpdateMetadata("player", player);
-            test.PostInitialize();
-            test.Active = true;
-
-            test = gameObjectFactory.GetGameObject("EnemySpawner", 0f, 0f);
-            test.PostInitialize();
-            test.Active = true;
-
-            test = gameObjectFactory.GetGameObject("ScoreDisplay", 100f, 100f);
-            test.PostInitialize();
-            test.Active = true;
         }
 
         /// <summary>
@@ -143,7 +127,12 @@ namespace ExampleGameSHMUP
             particleRenderer.LoadContent(Content);
 
             PlayerManager manager = (PlayerManager)GameServiceManager.GetService(typeof(PlayerManager));
-                manager.SetPlayer(LogicalPlayerIndex.One, PlayerIndex.One);
+            manager.SetPlayer(LogicalPlayerIndex.One, PlayerIndex.One);
+
+            foreach (IGameService service in GameServiceManager.Services)
+            {
+                service.PostInitialize();
+            }
         }
 
         /// <summary>
@@ -165,13 +154,6 @@ namespace ExampleGameSHMUP
                 Exit();
             
             GameServiceManager.Update(gameTime);
-
-            var gameObjects = GameServiceManager.GetService<IGameObjectManager>().GetAll();
-            foreach (IGameObject gameObject in gameObjects)
-            {
-                if (gameObject.Active)
-                    gameObject.Update(gameTime);
-            }
 
             base.Update(gameTime);
         }

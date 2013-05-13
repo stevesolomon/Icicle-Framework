@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml.Linq;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Pooling;
 using Microsoft.Xna.Framework;

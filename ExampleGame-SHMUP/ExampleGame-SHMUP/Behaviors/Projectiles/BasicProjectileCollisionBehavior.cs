@@ -1,6 +1,7 @@
 ﻿using ExampleGameSHMUP.Actions.Projectiles;
 using IcicleFramework.Actions;
 using IcicleFramework.Actions.Damage;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Collision;
 using IcicleFramework.Components.Damage;

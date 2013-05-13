@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Xml.Linq;
 using ExampleGameSHMUP.Actions.Particles;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Health;
 using IcicleFramework.Components.Renderable;

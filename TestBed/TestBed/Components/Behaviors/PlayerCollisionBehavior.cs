@@ -1,4 +1,5 @@
-﻿using IcicleFramework.Components.Behaviors;
+﻿using IcicleFramework.Behaviors;
+using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Collision;
 using Microsoft.Xna.Framework;
 using TestBed.Actions;

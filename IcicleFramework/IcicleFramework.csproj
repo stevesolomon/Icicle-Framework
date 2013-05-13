@@ -124,7 +124,7 @@
     <Compile Include="Actions\Particles\EmitParticleAction.cs" />
     <Compile Include="Actions\Physics\PhysicsImpulseAction.cs" />
     <Compile Include="Actions\SequenceGameAction.cs" />
-    <Compile Include="Behaviors\Destroy\BaseDestructionBehavior.cs" />
+    <Compile Include="Behaviors\Destruction\BaseDestructionBehavior.cs" />
     <Compile Include="Cameras\BasicCamera2D.cs" />
     <Compile Include="Cameras\Camera2D.cs" />
     <Compile Include="Cameras\Camera2DFS.cs" />
@@ -136,11 +136,11 @@
     <Compile Include="Collision\CollisionManager.cs" />
     <Compile Include="Collision\CollisionWorld.cs" />
     <Compile Include="Collision\QuadTree.cs" />
-    <Compile Include="Components\Behaviors\BaseBehavior.cs" />
+    <Compile Include="Behaviors\BaseBehavior.cs" />
     <Compile Include="Components\Behaviors\BehaviorComponent.cs" />
-    <Compile Include="Components\Behaviors\CollisionBehaviors\PhysicsCollisionBehavior.cs" />
-    <Compile Include="Components\Behaviors\Death\BaseDeathBehavior.cs" />
-    <Compile Include="Components\Behaviors\IBehavior.cs" />
+    <Compile Include="Behaviors\Collision\PhysicsCollisionBehavior.cs" />
+    <Compile Include="Behaviors\Death\BaseDeathBehavior.cs" />
+    <Compile Include="Behaviors\IBehavior.cs" />
     <Compile Include="Components\Behaviors\IBehaviorComponent.cs" />
     <Compile Include="Components\Damage\DamageComponent.cs" />
     <Compile Include="Components\Damage\IDamageComponent.cs" />

@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Xml.Linq;
 using ExampleGameSHMUP.Actions.Particles;
-using IcicleFramework.Behaviors.Destroy;
+using IcicleFramework.Behaviors;
+using IcicleFramework.Behaviors.Destruction;
 using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Renderable;
 using Microsoft.Xna.Framework;
@@ -12,7 +13,7 @@ namespace ExampleGameSHMUP.Behaviors
     {
         protected string ParticleEffectName { get; set; }
 
-        protected override void OnBaseBehaviorDestroyed()
+        protected override void OnBehaviorDestroyed()
         {
             var renderComponent = ParentGameObject.GetComponent<IRenderComponent>();
 
@@ -33,7 +34,7 @@ namespace ExampleGameSHMUP.Behaviors
                 Parent.FireAction(particleAction, ParentGameObject);
             }
 
-            base.OnBaseBehaviorDestroyed();
+            base.OnBehaviorDestroyed();
         }
 
         public override void CopyInto(IBehavior newObject)

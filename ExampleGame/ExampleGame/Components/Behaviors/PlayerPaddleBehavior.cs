@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using ExampleGame.GameSystems;
 using IcicleFramework;
 using IcicleFramework.Actions.Physics;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Renderable;
 using IcicleFramework.Entities;

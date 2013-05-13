@@ -1,7 +1,8 @@
-﻿using IcicleFramework.Components.Health;
+﻿using IcicleFramework.Components.Behaviors;
+using IcicleFramework.Components.Health;
 using IcicleFramework.Entities;
 
-namespace IcicleFramework.Components.Behaviors.Death
+namespace IcicleFramework.Behaviors.Death
 {
     public abstract class BaseDeathBehavior : BaseBehavior
     {

@@ -1,5 +1,6 @@
 ﻿using ExampleGame.Actions;
 using IcicleFramework.Actions;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Health;
 using IcicleFramework.Entities;

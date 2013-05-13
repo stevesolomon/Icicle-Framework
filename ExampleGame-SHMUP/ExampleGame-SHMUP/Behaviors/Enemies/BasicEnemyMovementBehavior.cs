@@ -1,4 +1,5 @@
-﻿using IcicleFramework.Components.Behaviors;
+﻿using IcicleFramework.Behaviors;
+using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Movement;
 using Microsoft.Xna.Framework;
 

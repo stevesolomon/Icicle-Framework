@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Xml.Linq;
 using ExampleGameSHMUP.Actions.Spawning;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 using IcicleFramework.GameServices;
 using IcicleFramework.GameServices.HelperServices;

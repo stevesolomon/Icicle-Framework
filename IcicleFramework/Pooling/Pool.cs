@@ -52,6 +52,8 @@ namespace IcicleFramework.Pooling
         /// </summary>
         public int InvalidCount { get; private set; }
 
+        protected Type ConcreteType { get; set; }
+
         public T this[int index]
         {
             get
@@ -77,6 +79,8 @@ namespace IcicleFramework.Pooling
             items = new T[initialSize];
 
             InvalidCount = items.Length;
+
+            ConcreteType = type;
 
             //Find a valid, parameterless constructor to use for the passed in Type, public or otherwise.
             constructor = type.GetConstructor(
@@ -123,7 +127,7 @@ namespace IcicleFramework.Pooling
             if (InvalidCount == 0)
             {
 #if WINDOWS
-                Trace.WriteLine("Resizing pool. Old size: " + items.Length + ". New size: " + (items.Length + ResizeAmount));
+                Trace.WriteLine("Resizing single type pool storing " + ConcreteType.FullName + ". Old size: " + items.Length + ". New size: " + (items.Length + ResizeAmount));
 #endif
                 // create a new array with some more slots and copy over the existing items
                 T[] newItems = new T[items.Length + ResizeAmount];

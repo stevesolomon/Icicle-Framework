@@ -2,7 +2,7 @@
 using IcicleFramework.Actions;
 using IcicleFramework.Actions.Damage;
 using IcicleFramework.Actions.Particles;
-using IcicleFramework.Components.Behaviors.CollisionBehaviors;
+using IcicleFramework.Behaviors.Collision;
 using IcicleFramework.Components.Damage;
 using IcicleFramework.Components.Physics;
 

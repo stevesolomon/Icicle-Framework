@@ -1,4 +1,5 @@
 ﻿using IcicleFramework.Actions.Destruction;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;
@@ -34,6 +35,7 @@ namespace ExampleGameSHMUP.Behaviors.Projectiles
         public override void Dispose()
         {
             CameraManager = null;
+            ParentGameObject.OnMove -= OnMove;
             base.Dispose();
         }
     }

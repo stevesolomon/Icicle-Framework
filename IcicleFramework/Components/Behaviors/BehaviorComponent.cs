@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml.Linq;
 using IcicleFramework.Actions;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.EntityState;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;
@@ -142,6 +143,16 @@ namespace IcicleFramework.Components.Behaviors
 
         public override void Dispose()
         {
+            foreach (var behavior in behaviors)
+            {
+                behavior.Value.Dispose();
+            }
+
+            foreach (var behavior in behaviorsToRemove)
+            {
+                behavior.Dispose();
+            }
+
             behaviors.Clear();
             behaviorsToRemove.Clear();
             stateComponent = null;

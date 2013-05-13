@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Xml.Linq;
 using IcicleFramework;
 using IcicleFramework.Actions.Physics;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Physics;
 using Microsoft.Xna.Framework;

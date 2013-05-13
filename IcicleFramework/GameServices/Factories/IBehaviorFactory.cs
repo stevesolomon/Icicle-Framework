@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Linq;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 
 namespace IcicleFramework.GameServices.Factories

@@ -1,8 +1,9 @@
 ﻿using System;
+using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Entities;
 using IcicleFramework.Pooling;
 
-namespace IcicleFramework.Components.Behaviors
+namespace IcicleFramework.Behaviors
 {
     public interface IBehavior : IXmlBuildable, IUpdateable, IPoolable<IBehavior>, IInitializable, IPauseable, INameable, IDeepCopyable<IBehavior>, IDestroyable<IBehavior>, IDisposable
     {

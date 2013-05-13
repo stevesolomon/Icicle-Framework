@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Xml.Linq;
 using IcicleFramework.Actions.Movement;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 
 namespace ExampleGameSHMUP.Behaviors.Projectiles

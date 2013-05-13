@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using ExampleGame.Components.Score;
 using ExampleGame.GameSystems;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Renderable;
 using IcicleFramework.Entities;

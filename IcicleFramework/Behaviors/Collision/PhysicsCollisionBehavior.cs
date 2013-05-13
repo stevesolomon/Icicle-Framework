@@ -1,9 +1,10 @@
 ﻿using FarseerPhysics.Dynamics.Contacts;
+using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Physics;
 using IcicleFramework.GameServices;
 using IcicleFramework.Physics;
 
-namespace IcicleFramework.Components.Behaviors.CollisionBehaviors
+namespace IcicleFramework.Behaviors.Collision
 {
     public abstract class PhysicsCollisionBehavior : BaseBehavior
     {

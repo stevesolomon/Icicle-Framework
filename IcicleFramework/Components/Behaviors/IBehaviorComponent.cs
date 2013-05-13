@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using IcicleFramework.Actions;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.EntityState;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;

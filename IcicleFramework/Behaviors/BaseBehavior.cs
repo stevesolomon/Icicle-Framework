@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Xml.Linq;
+using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Entities;
 using Microsoft.Xna.Framework;
 
-namespace IcicleFramework.Components.Behaviors
+namespace IcicleFramework.Behaviors
 {
     public abstract class BaseBehavior : IBehavior
     {
@@ -27,7 +28,7 @@ namespace IcicleFramework.Components.Behaviors
 
                 if (destroyed)
                 {
-                    OnBaseBehaviorDestroyed();
+                    OnBehaviorDestroyed();
                 }
             }
         }
@@ -71,7 +72,7 @@ namespace IcicleFramework.Components.Behaviors
             newObject.Name = Name;
         }
 
-        protected virtual void OnBaseBehaviorDestroyed()
+        protected virtual void OnBehaviorDestroyed()
         {
             if (OnDestroyed != null)
             {

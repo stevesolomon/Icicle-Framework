@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Health;
 using IcicleFramework.Components.Renderable;

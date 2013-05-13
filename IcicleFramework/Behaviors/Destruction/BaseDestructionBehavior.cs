@@ -1,7 +1,6 @@
-﻿using IcicleFramework.Components.Behaviors;
-using IcicleFramework.Entities;
+﻿using IcicleFramework.Entities;
 
-namespace IcicleFramework.Behaviors.Destroy
+namespace IcicleFramework.Behaviors.Destruction
 {
     public class BaseDestructionBehavior : BaseBehavior
     {
