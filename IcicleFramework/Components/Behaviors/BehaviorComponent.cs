@@ -141,17 +141,17 @@ namespace IcicleFramework.Components.Behaviors
             }
         }
 
-        public override void Dispose()
+        public override void Cleanup()
         {
-            foreach (var behavior in behaviors)
-            {
-                behavior.Value.Dispose();
-            }
+          //  foreach (var behavior in behaviors)
+           // {
+           //     behavior.Value.Cleanup();
+           // }
 
-            foreach (var behavior in behaviorsToRemove)
-            {
-                behavior.Dispose();
-            }
+          //  foreach (var behavior in behaviorsToRemove)
+          //  {
+          //      behavior.Cleanup();
+          //  }
 
             behaviors.Clear();
             behaviorsToRemove.Clear();
@@ -159,7 +159,7 @@ namespace IcicleFramework.Components.Behaviors
             behaviorFactory = null;
             actionManager = null;
 
-            base.Dispose();
+            base.Cleanup();
         }
 
         public override void CopyInto(IBaseComponent newObject)
@@ -180,14 +180,14 @@ namespace IcicleFramework.Components.Behaviors
             base.CopyInto(newObject);
         }
 
-        protected override void OnComponentDestroyed()
+        public override void Destroy()
         {
             foreach (var behavior in behaviors.Values)
             {
-                behavior.Destroyed = true;
+                behavior.Destroy();
             }
 
-            base.OnComponentDestroyed();
+            base.Destroy();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace IcicleFramework.GameServices.Factories
     {
         public event GameObjectCreatedHandler OnGameObjectCreated;
 
-        protected Pool<IGameObject> rawPool;
+        protected PoolNew<IGameObject> rawPool;
 
         protected Dictionary<string, IGameObject> gameObjectTemplates; 
 
@@ -50,27 +50,15 @@ namespace IcicleFramework.GameServices.Factories
         {
             ComponentFactory = (IComponentFactory) GameServiceManager.GetService(typeof (IComponentFactory));
             
-            rawPool = new Pool<IGameObject>(typeof(GameObject), 1024);
-            rawPool.Initialize = InitializeGameObject;
-            rawPool.Deinitialize = DeinitializeGameObject;
+            rawPool = new PoolNew<IGameObject>(typeof(GameObject), 1024);
 
             gameObjectTemplates = new Dictionary<string, IGameObject>();
-        }
-
-        private void InitializeGameObject(IGameObject gameObject)
-        {
-            gameObject.Destroyed = false;
         }
 
         protected virtual void FireOnGameObjectCreated(IGameObject newGameObject)
         {
             if (OnGameObjectCreated != null)
                 OnGameObjectCreated(newGameObject);
-        }
-
-        protected void DeinitializeGameObject(IGameObject gameObject)
-        {
-            gameObject.Active = false;
         }
 
         protected void GenerateComponents(IGameObject gameObject, XElement element)

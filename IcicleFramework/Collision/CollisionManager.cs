@@ -21,7 +21,7 @@ namespace IcicleFramework.Collision
 
         protected Dictionary<Guid, CollisionList> currentCollisions;
 
-        protected Pool<CollisionList> listPool; 
+        protected PoolNew<CollisionList> listPool; 
 
         protected List<ICollisionComponent> tempList;
 
@@ -37,7 +37,7 @@ namespace IcicleFramework.Collision
 
         public CollisionManager(RectangleF worldSpace)
         {
-            listPool = new Pool<CollisionList>(typeof(CollisionList), 1000);
+            listPool = new PoolNew<CollisionList>(typeof(CollisionList), 1000);
             currentCollisions = new Dictionary<Guid, CollisionList>();
             tempList = new List<ICollisionComponent>(64);
             movedLastFrame = new Dictionary<Guid, ICollisionComponent>(512);
@@ -148,7 +148,6 @@ namespace IcicleFramework.Collision
         {
             var collisionComponent = baseComponent as ICollisionComponent;
             var gameObject = baseComponent.Parent;
-            var toRemove = new Dictionary<Guid, ICollisionComponent>();
 
             if (collisionComponent != null)
                 collisionTree.RemoveObject(collisionComponent);
@@ -253,6 +252,7 @@ namespace IcicleFramework.Collision
 
         #endregion
         
+
         public override void Update(GameTime gameTime)
         {
             foreach (var gameObject in movedLastFrame)
@@ -338,7 +338,7 @@ namespace IcicleFramework.Collision
                         currentCollisions[collision.Parent.GUID].Add(moved.Value); 
                         NotifyCollision(collision, moved.Value);
                     }
-                } 
+                }  
             }
         }
 

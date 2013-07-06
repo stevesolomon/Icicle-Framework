@@ -66,7 +66,7 @@
           </behavior>
           <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Enemies.BasicEnemyMovementBehavior" name="movementBehavior" />
           <behavior type="IBehavior" class="ExampleGameSHMUP.Behaviors.Enemies.BasicEnemyFiringBehavior" name="fireBehavior">
-            <timeBetweenShots>0.75</timeBetweenShots>
+            <timeBetweenShots>500.5</timeBetweenShots>
           </behavior>
         </behaviors>
       </component>

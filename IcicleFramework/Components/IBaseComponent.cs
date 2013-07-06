@@ -4,7 +4,7 @@ using IcicleFramework.Pooling;
 
 namespace IcicleFramework.Components
 {
-    public interface IBaseComponent : IXmlBuildable, IUpdateable, IInitializable, IPauseable, IPoolable<IBaseComponent>, IDeepCopyable<IBaseComponent>, IDestroyable<IBaseComponent>, IDisposable
+    public interface IBaseComponent : IXmlBuildable, IUpdateable, IInitializable, IPauseable, IPoolable<IBaseComponent>, IDeepCopyable<IBaseComponent>
     {
         /// <summary>
         /// Gets whether or not this IBaseComponent is Active.

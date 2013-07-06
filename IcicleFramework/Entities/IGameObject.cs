@@ -10,7 +10,7 @@ namespace IcicleFramework.Entities
 
     public delegate void InitializeHandler(IGameObject sender);
 
-    public interface IGameObject : IPoolable<IGameObject>, IXmlBuildable, IDeepCopyable<IGameObject>, IDestroyable<IGameObject>, IDisposable
+    public interface IGameObject : IPoolable<IGameObject>, IXmlBuildable, IDeepCopyable<IGameObject>, IDisposable
     {
         /// <summary>
         /// Gets or sets whether or not this <see cref="IGameObject"/> is Active.

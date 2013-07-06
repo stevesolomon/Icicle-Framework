@@ -7,26 +7,10 @@ namespace IcicleFramework.Components
 {
     public abstract class BaseComponent : IBaseComponent
     {
-        private bool destroyed;
-
         public event DestroyedHandler<IBaseComponent> OnDestroyed;
 
-        public bool Destroyed
-        {
-            get { return destroyed; }
-            set
-            {
-                destroyed = value;
-
-                if (destroyed)
-                {
-                    OnComponentDestroyed();
-                }
-            }
-        }
-
-        public bool Unallocated { get { return Destroyed; } }
-
+        public bool Destroyed { get; protected set; }
+        
         public virtual bool Active { get; set; }
 
         public virtual IGameObject Parent { get; set; }
@@ -56,25 +40,33 @@ namespace IcicleFramework.Components
 
         public abstract void Deserialize(XElement element);
 
-        public virtual void Dispose()
-        {
-            Parent = null;
-            Paused = false;
-            Destroyed = false;
-        }
-
         public virtual void CopyInto(IBaseComponent newObject)
         {
             newObject.InterfaceType = InterfaceType;
             newObject.ConcreteType = ConcreteType;
         }
 
-        protected virtual void OnComponentDestroyed()
+        public virtual void Destroy()
         {
             if (OnDestroyed != null)
             {
                 OnDestroyed(this);
             }
+        }
+
+        public virtual void Reallocate()
+        {
+            if (Destroyed)
+                Reallocate();
+        }
+
+        public virtual void Cleanup()
+        {
+            Destroyed = false;
+            Active = false;
+            Parent = null;
+            InterfaceType = null;
+            ConcreteType = null;
         }
     }
 }

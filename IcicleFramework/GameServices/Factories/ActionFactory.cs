@@ -36,7 +36,7 @@ namespace IcicleFramework.GameServices.Factories
 
             if (!actionPools.HasPool(type))
             {
-                actionPools.PreparePool(type);
+                actionPools.CreatePool(type);
             }
 
             return loaded;

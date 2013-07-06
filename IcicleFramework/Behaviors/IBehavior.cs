@@ -5,7 +5,7 @@ using IcicleFramework.Pooling;
 
 namespace IcicleFramework.Behaviors
 {
-    public interface IBehavior : IXmlBuildable, IUpdateable, IPoolable<IBehavior>, IInitializable, IPauseable, INameable, IDeepCopyable<IBehavior>, IDestroyable<IBehavior>, IDisposable
+    public interface IBehavior : IXmlBuildable, IUpdateable, IPoolable<IBehavior>, IInitializable, IPauseable, INameable, IDeepCopyable<IBehavior>
     {
         IBehaviorComponent Parent { get; set; }
 

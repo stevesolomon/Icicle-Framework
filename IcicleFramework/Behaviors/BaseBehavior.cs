@@ -8,8 +8,6 @@ namespace IcicleFramework.Behaviors
 {
     public abstract class BaseBehavior : IBehavior
     {
-        private bool destroyed;
-
         public IBehaviorComponent Parent { get; set; }
         
         public IGameObject ParentGameObject
@@ -19,21 +17,7 @@ namespace IcicleFramework.Behaviors
 
         public event DestroyedHandler<IBehavior> OnDestroyed;
 
-        public bool Destroyed
-        {
-            get { return destroyed;  }
-            set
-            {
-                destroyed = value;
-
-                if (destroyed)
-                {
-                    OnBehaviorDestroyed();
-                }
-            }
-        }
-
-        public bool Unallocated { get { return Destroyed; } }
+        public bool Destroyed { get; protected set; }
 
         public Type ConcreteType { get; set; }
 
@@ -61,23 +45,29 @@ namespace IcicleFramework.Behaviors
 
         public virtual void Update(GameTime gameTime) { }
 
-        public virtual void Dispose()
-        {
-            Parent = null;
-            Destroyed = false;
-        }
-
         public virtual void CopyInto(IBehavior newObject)
         {
             newObject.Name = Name;
         }
 
-        protected virtual void OnBehaviorDestroyed()
+        public virtual void Destroy()
         {
             if (OnDestroyed != null)
             {
                 OnDestroyed(this);
             }
         }
+
+        #region IPoolable Methods
+
+        public virtual void Cleanup()
+        {
+            Destroyed = false;
+            Active = false;
+            Parent = null;
+            Name = "";
+        }
+
+        #endregion
     }
 }

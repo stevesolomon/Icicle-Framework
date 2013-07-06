@@ -112,7 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\Particles\OneShotEmitParticleAction.cs" />
-    <Compile Include="Actions\Projectiles\BaseDestroyProjectileAction.cs" />
     <Compile Include="Actions\Projectiles\FireProjectileAction.cs" />
     <Compile Include="Actions\Spawning\SpawnEnemyAction.cs" />
     <Compile Include="Behaviors\BasicProjectileFiringBehavior.cs" />

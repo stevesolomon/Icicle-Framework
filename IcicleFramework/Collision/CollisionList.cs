@@ -26,8 +26,6 @@ namespace IcicleFramework.Collision
             }
         }
 
-        public bool Unallocated { get { return destroyed; } }
-
         public event DestroyedHandler<CollisionList> OnDestroyed;
 
         public new void Add(ICollisionComponent value)
@@ -50,6 +48,18 @@ namespace IcicleFramework.Collision
             {
                 OnDestroyed(this);
             }
+        }
+
+
+        public virtual void Cleanup()
+        {
+            Destroyed = false;
+            Source = null;
+        }
+
+        public virtual void Destroy()
+        {
+            Destroyed = true;
         }
     }
 }

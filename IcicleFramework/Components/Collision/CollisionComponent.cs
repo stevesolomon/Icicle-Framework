@@ -210,7 +210,7 @@ namespace IcicleFramework.Components.Collision
             Solid = solid;
         }
 
-        public override void Dispose()
+        public override void Cleanup()
         {
             OnCollision = null;
             OnCollisionStopped = null;
@@ -218,7 +218,7 @@ namespace IcicleFramework.Components.Collision
             CollisionPriority = 0;
             BoundingBox2D = null;
 
-            base.Dispose();
+            base.Cleanup();
         }
         
         public bool HasMoved

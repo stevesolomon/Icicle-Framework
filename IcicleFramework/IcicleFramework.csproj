@@ -16,10 +16,14 @@
     <XnaProfile>HiDef</XnaProfile>
     <XnaCrossPlatformGroupID>00e7878f-b9b4-45f9-9a84-5c4297ce8f49</XnaCrossPlatformGroupID>
     <XnaOutputType>Library</XnaOutputType>
-    <SccProjectName>Svn</SccProjectName>
-    <SccLocalPath>Svn</SccLocalPath>
-    <SccAuxPath>Svn</SccAuxPath>
-    <SccProvider>SubversionScc</SccProvider>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -238,8 +242,10 @@
     <Compile Include="Pooling\IPoolable.cs" />
     <Compile Include="IPositional.cs" />
     <Compile Include="Pooling\IPool.cs" />
+    <Compile Include="Pooling\IPoolNew.cs" />
     <Compile Include="Pooling\MultiTypePool.cs" />
     <Compile Include="Pooling\Pool.cs" />
+    <Compile Include="Pooling\PoolNew.cs" />
     <Compile Include="Renderables\AnimatedSprite.cs" />
     <Compile Include="Renderables\BaseRenderable.cs" />
     <Compile Include="Renderables\Animation\SpriteAnimation.cs" />

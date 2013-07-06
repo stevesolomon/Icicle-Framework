@@ -82,7 +82,7 @@ namespace IcicleFramework.Pooling
 
             ConcreteType = type;
 
-            //Find a valid, parameterless constructor to use for the passed in Type, public or otherwise.
+            //Find a valid, parameterless constructor to use for the passed in Type.
             constructor = type.GetConstructor(
                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
                 null,
@@ -100,7 +100,7 @@ namespace IcicleFramework.Pooling
                 T obj = items[i];
 
                 //If the object hasn't been destroyed then keep going.
-                if (!obj.Unallocated)
+                if (!obj.Destroyed)
                     continue;
 
                 //If the object has been destroyed and we're not at the start of the invalid objects,

@@ -1,8 +1,8 @@
 ﻿using ExampleGameSHMUP.Actions.Projectiles;
 using IcicleFramework.Actions;
 using IcicleFramework.Actions.Damage;
+using IcicleFramework.Actions.Destruction;
 using IcicleFramework.Behaviors;
-using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Collision;
 using IcicleFramework.Components.Damage;
 
@@ -33,7 +33,7 @@ namespace ExampleGameSHMUP.Behaviors.Projectiles
             damageAction.Damage = DamageComponent.Damage;
 
             //Let's fire a particle destruction action while we're at it!
-            var destroyAction = Parent.ActionFactory.GetAction<BaseDestroyProjectileAction>();
+            var destroyAction = Parent.ActionFactory.GetAction<DestroyGameObjectAction>();
 
             var sequence = Parent.ActionFactory.GetAction<SequenceGameAction>();
             sequence.AddAction(damageAction);
@@ -42,13 +42,13 @@ namespace ExampleGameSHMUP.Behaviors.Projectiles
             Parent.FireAction(sequence, collided.Parent);
         }
 
-        public override void Dispose()
+        public override void Cleanup()
         {
             CollisionComponent.OnCollision -= Collided;
             CollisionComponent = null;
             DamageComponent = null;
 
-            base.Dispose();
+            base.Cleanup();
         }
     }
 }

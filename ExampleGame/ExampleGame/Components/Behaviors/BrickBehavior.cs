@@ -1,7 +1,6 @@
 ﻿using ExampleGame.Actions;
 using IcicleFramework.Actions;
 using IcicleFramework.Behaviors;
-using IcicleFramework.Components.Behaviors;
 using IcicleFramework.Components.Health;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;
@@ -54,7 +53,7 @@ namespace ExampleGame.Components.Behaviors
 
             Parent.FireAction(pointsAction, playerPaddle);
 
-            ParentGameObject.Destroyed = true;
+            ParentGameObject.Destroy();
         }
     }
 }

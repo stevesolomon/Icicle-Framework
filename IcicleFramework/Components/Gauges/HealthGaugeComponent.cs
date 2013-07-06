@@ -33,7 +33,7 @@ namespace IcicleFramework.Components.Gauges
             base.Initialize();
         }
 
-        public override void Dispose()
+        public override void Cleanup()
         {
             if (Parent != null)
             {
@@ -43,7 +43,7 @@ namespace IcicleFramework.Components.Gauges
                     healthComponent.OnHealthChanged -= HealthChanged;
             }
 
-            base.Dispose();
+            base.Cleanup();
         }
 
     }

@@ -43,13 +43,14 @@ namespace IcicleFramework.Actions
             }
         }
 
-        public bool Unallocated { get { return Destroyed; } }
-
         public virtual bool Paused { get; protected set; }
 
         public virtual IGameObject Target { get { return target; } set { target = value; } }
 
-        public virtual void Initialize() { }
+        public virtual void Initialize()
+        {
+            Finished = false;
+        }
 
         public virtual void Update(GameTime gameTime)
         {
@@ -91,6 +92,24 @@ namespace IcicleFramework.Actions
             {
                 Paused = false;
             }
+        }
+
+        #endregion
+
+
+        #region IPoolable Methods
+
+        public virtual void Cleanup()
+        {
+            target = null;
+            Parent = null;
+            Finished = true;
+            Destroyed = false;
+        }
+
+        public virtual void Destroy()
+        {
+            Destroyed = true;
         }
 
         #endregion

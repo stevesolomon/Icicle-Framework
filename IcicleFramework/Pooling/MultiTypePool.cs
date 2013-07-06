@@ -1,48 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace IcicleFramework.Pooling
 {
-    public class MultiTypePool<T> where T : class, IPoolable<T>, IDisposable
+    public class MultiTypePool<T> where T : class, IPoolable<T>
     {
         public int InitialSize { get; set; }
 
-        protected Dictionary<Type, Pool<T>> typePools;
-
-        protected Dictionary<Type, int> numRetrievedFromPool;
-
-        protected int maxRetrievedFromPool = 128;
+        protected Dictionary<Type, PoolNew<T>> typePools;
 
         public MultiTypePool(int initialSize = 128)
         {
-            typePools = new Dictionary<Type, Pool<T>>();
-            numRetrievedFromPool = new Dictionary<Type, int>();
+            typePools = new Dictionary<Type, PoolNew<T>>();
 
             InitialSize = initialSize;
         }
 
-        public Action<T> Initialize { get; set; }
-
-        public Action<T> Deinitialize { get; set; }
-
-        protected void CreatePool(Type type)
-        {
-            var pool = new Pool<T>(type, InitialSize);
-            pool.Initialize = Initialize;
-            pool.Deinitialize = Deinitialize;
-
-            typePools.Add(type, pool);
-            numRetrievedFromPool.Add(type, 0);
-        }
-
-        public void PreparePool(Type type)
+        public void CreatePool(Type type)
         {
             if (!typePools.ContainsKey(type))
             {
-                CreatePool(type);
+                var pool = new PoolNew<T>(type, InitialSize);
+
+                typePools.Add(type, pool);
             }
         }
-
+        
         public bool HasPool(Type type)
         {
             return typePools.ContainsKey(type);

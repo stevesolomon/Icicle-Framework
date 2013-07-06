@@ -73,12 +73,12 @@ namespace IcicleFramework.Components.Scaling
         public override void Deserialize(XElement element)
         { }
 
-        public override void Dispose()
+        public override void Cleanup()
         {
             renderComponent = null;
             physicsComponent = null;
 
-            base.Dispose();
+            base.Cleanup();
         }
     }
 }

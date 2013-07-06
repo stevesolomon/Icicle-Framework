@@ -37,11 +37,11 @@ namespace ExampleGameSHMUP.Behaviors.Projectiles
             base.CopyInto(newObject);
         }
 
-        public override void Dispose()
+        public override void Cleanup()
         {
             ActionFiring = false;
             Angle = 0f;
-            base.Dispose();
+            base.Cleanup();
         }
 
         public override void Deserialize(XElement element)

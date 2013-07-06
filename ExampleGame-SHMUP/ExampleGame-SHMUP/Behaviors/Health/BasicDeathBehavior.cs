@@ -25,7 +25,7 @@ namespace ExampleGameSHMUP.Behaviors.Health
         {
             healthComponent.OnHealthDepleted -= OnHealthDepleted;
 
-            ParentGameObject.Destroyed = true;
+            ParentGameObject.Destroy();
         }
     }
 }

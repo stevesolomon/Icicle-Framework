@@ -6,7 +6,7 @@ namespace IcicleFramework.Actions.Destruction
     {
         public override void Update(GameTime gameTime)
         {
-            Target.Destroyed = true;
+            Target.Destroy();
             Finished = true;
 
             base.Update(gameTime);

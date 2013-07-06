@@ -49,8 +49,6 @@ namespace IcicleFramework.Collision
             }
         }
 
-        public bool Unallocated { get { return Destroyed; } }
-
         /// <summary>
         /// The wrapped data value
         /// </summary>
@@ -95,6 +93,18 @@ namespace IcicleFramework.Collision
                 OnDestroyed(this);
             }
         }
+
+        public virtual void Cleanup()
+        {
+            Destroyed = false;
+            Data = default(T);
+            Owner = null;
+        }
+
+        public virtual void Destroy()
+        {
+            Destroyed = true;
+        }
     }
 
     /// <summary>
@@ -110,7 +120,7 @@ namespace IcicleFramework.Collision
         // The root of this quad tree
         private readonly QuadTreeNode<T> quadTreeRoot;
 
-        private Pool<QuadTreeObject<T>> quadTreeObjectPool;
+        private PoolNew<QuadTreeObject<T>> quadTreeObjectPool;
 
         private long objectRemovedCount;
 
@@ -125,8 +135,7 @@ namespace IcicleFramework.Collision
         public QuadTree(BoundingBox2D rect)
         {
             quadTreeRoot = new QuadTreeNode<T>(rect);
-            quadTreeObjectPool =  new Pool<QuadTreeObject<T>>(typeof(QuadTreeObject<T>), 1000);
-            quadTreeObjectPool.Initialize = (o => o.Active = true);
+            quadTreeObjectPool =  new PoolNew<QuadTreeObject<T>>(typeof(QuadTreeObject<T>), 1000);
             objectRemovedCount = 0;
         }
 
@@ -203,6 +212,7 @@ namespace IcicleFramework.Collision
         {
             QuadTreeObject<T> wrappedObject = quadTreeObjectPool.New();
             wrappedObject.Data = item;
+            wrappedObject.Active = true;
             wrappedDictionary.Add(item, wrappedObject);
             quadTreeRoot.Insert(wrappedObject);
         }

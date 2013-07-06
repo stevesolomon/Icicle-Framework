@@ -1,7 +1,9 @@
-﻿namespace IcicleFramework.Pooling
+﻿using IcicleFramework.Entities;
+
+namespace IcicleFramework.Pooling
 {
-    public interface IPoolable<T>
+    public interface IPoolable<T> : IDestroyable<T>
     {
-        bool Unallocated { get; }
+        void Cleanup();
     }
 }

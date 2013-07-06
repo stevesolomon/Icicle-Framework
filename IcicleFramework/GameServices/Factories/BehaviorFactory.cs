@@ -32,7 +32,7 @@ namespace IcicleFramework.GameServices.Factories
 
             if (!behaviorPools.HasPool(type))
             {
-                behaviorPools.PreparePool(type);
+                behaviorPools.CreatePool(type);
             }
 
             return loaded;
@@ -126,7 +126,7 @@ namespace IcicleFramework.GameServices.Factories
             else if (replaceExisting)
             {
                 var template = templateBehaviors[key];
-                template.Dispose();
+                template.Cleanup();
 
                 behavior.CopyInto(template);
 

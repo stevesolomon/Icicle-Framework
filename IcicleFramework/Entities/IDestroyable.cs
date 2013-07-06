@@ -6,6 +6,8 @@
     {
         event DestroyedHandler<T> OnDestroyed;
 
-        bool Destroyed { get; set; }
+        bool Destroyed { get; }
+
+        void Destroy();
     }
 }

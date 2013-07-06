@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace IcicleFramework.Entities
 {
-    public class GameObject : IGameObject
+    public sealed class GameObject : IGameObject
     {
         #region Internal Members
 
@@ -20,8 +20,6 @@ namespace IcicleFramework.Entities
         private float rotation;
 
         private float lastRotation;
-
-        private bool destroyed;
 
         private bool active;
 
@@ -54,21 +52,7 @@ namespace IcicleFramework.Entities
 
         public string Name { get; set; }
 
-        public bool Destroyed
-        {
-            get { return destroyed; }
-            set
-            {
-                destroyed = value;
-
-                if (destroyed)
-                {
-                    OnGameObjectDestroyed();
-                }
-            }
-        }
-
-        public bool Unallocated { get { return Destroyed; } }
+        public bool Destroyed { get; protected set; }
 
         public bool HasMoved { get { return lastPosition != position; } }
 
@@ -362,17 +346,39 @@ namespace IcicleFramework.Entities
         #endregion
 
 
-        protected virtual void OnGameObjectDestroyed()
+        #region Destroy
+
+        public void Destroy()
         {
             foreach (var component in components.Values)
             {
-                component.Destroyed = true;
+                component.Destroy();
             }
 
             if (OnDestroyed != null)
             {
                 OnDestroyed(this);
             }
+
+            Destroyed = true;
+            Active = false;
         }
+        
+        #endregion
+
+
+        #region IPoolable Methods
+
+        public void Cleanup()
+        {
+            Active = false;
+            Destroyed = false;
+            GUID = new Guid();
+
+            foreach (var component in components.Values)
+                component.Cleanup();
+        }
+
+        #endregion
     }
 }

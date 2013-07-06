@@ -59,11 +59,11 @@ namespace ExampleGameSHMUP.Behaviors.Players
             base.Update(gameTime);
         }
 
-        public override void Dispose()
+        public override void Cleanup()
         {
             player = null;
 
-            base.Dispose();
+            base.Cleanup();
         }
     }
 }
