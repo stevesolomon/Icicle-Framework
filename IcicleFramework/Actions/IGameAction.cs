@@ -20,11 +20,6 @@ namespace IcicleFramework.Actions
         bool Finished { get; }
 
         /// <summary>
-        /// Gets whether or not this <see cref="IGameAction"/> is marked for destruction.
-        /// </summary>
-        bool Destroyed { get; set; }
-
-        /// <summary>
         /// Gets or sets the <see cref="IGameObject"/> that invoked this <see cref="IGameAction"/>.
         /// </summary>
         IGameObject Parent { get; set; }

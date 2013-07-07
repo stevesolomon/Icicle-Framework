@@ -24,15 +24,6 @@ namespace IcicleFramework.Components.Collision
         /// </summary>
         bool Solid { get; set; }
 
-        /// <summary>
-        /// Gets the bounding box associated with this ICollidable object.
-        /// </summary>
-        BoundingBox2D BoundingBox2D
-        {
-            get; 
-            set;
-        }
-
         CorrectionVector2 GetCorrectionVector(ICollisionComponent B);
     }
 }

@@ -17,7 +17,7 @@ namespace IcicleFramework.GameServices
 
         protected Dictionary<IGameAction, ActionCompletedCallback> callbacks; 
         
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             //First add any new actions that were added in the previous Update.
             foreach (IGameAction action in addNextUpdate)
@@ -44,7 +44,7 @@ namespace IcicleFramework.GameServices
             executingActions.Update(gameTime);
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             executingActions = new ParallelGameAction();
             delayedActions = new List<IGameAction>(128);
@@ -80,7 +80,6 @@ namespace IcicleFramework.GameServices
 
         protected void RegisterActionForExecution(IGameAction action)
         {
-            action.Destroyed = false;
             executingActions.AddAction(action);
         }
 

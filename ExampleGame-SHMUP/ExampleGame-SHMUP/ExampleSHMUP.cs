@@ -33,8 +33,6 @@ namespace ExampleGameSHMUP
 
         private ICameraService cameraService;
 
-        private IGameObject test;
-
         private Renderer renderer;
 
         public ExampleSHMUP()

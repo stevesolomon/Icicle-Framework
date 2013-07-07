@@ -40,6 +40,10 @@ namespace ExampleGameSHMUP.Behaviors.Projectiles
             sequence.AddAction(destroyAction);
 
             Parent.FireAction(sequence, collided.Parent);
+
+            //And now let's destroy ourself!
+            var selfDestroy = Parent.ActionFactory.GetAction<DestroyGameObjectAction>();
+            Parent.FireAction(selfDestroy, this.ParentGameObject);
         }
 
         public override void Cleanup()

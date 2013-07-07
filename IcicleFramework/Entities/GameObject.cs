@@ -52,7 +52,7 @@ namespace IcicleFramework.Entities
 
         public string Name { get; set; }
 
-        public bool Destroyed { get; protected set; }
+        public bool Destroyed { get; private set; }
 
         public bool HasMoved { get { return lastPosition != position; } }
 

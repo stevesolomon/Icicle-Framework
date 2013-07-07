@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Xml.Linq;
 using IcicleFramework.Behaviors;
 using IcicleFramework.Components.Behaviors;
@@ -45,7 +46,15 @@ namespace IcicleFramework.GameServices.Factories
 
         public IBehavior GetBehavior(Type type, string templateName = "")
         {
-            var newComponent = behaviorPools.New(type);
+            var constructor = type.GetConstructor(
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+                null,
+                new Type[] { },
+                null
+            );
+
+            var newComponent = constructor.Invoke(null) as IBehavior;
+            //var newComponent = behaviorPools.New(type);
 
             //If we have a named template then try to find it and copy it into our new behavior.
             if (!string.IsNullOrWhiteSpace(templateName))
@@ -71,7 +80,7 @@ namespace IcicleFramework.GameServices.Factories
 
         public override void Update(GameTime gameTime)
         {
-            behaviorPools.CleanUp();
+           // behaviorPools.CleanUp();
             base.Update(gameTime);
         }
 

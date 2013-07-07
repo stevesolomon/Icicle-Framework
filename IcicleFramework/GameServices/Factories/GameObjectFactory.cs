@@ -101,7 +101,7 @@ namespace IcicleFramework.GameServices.Factories
 
         public IGameObject GetRawGameObject()
         {
-            var gameObject = rawPool.New();
+            var gameObject = new GameObject();//rawPool.New();
 
             //Subscribe to the OnInitialize event for this game object so we know when it's been "created" and ready to go.
             gameObject.OnInitialize += OnGameObjectInitialize;
@@ -123,7 +123,7 @@ namespace IcicleFramework.GameServices.Factories
             }
 
             var template = gameObjectTemplates[name];
-            var newObject = rawPool.New();
+            var newObject = new GameObject();//rawPool.New();
 
             template.CopyInto(newObject);
             newObject.Position = new Vector2(x, y);
@@ -143,7 +143,7 @@ namespace IcicleFramework.GameServices.Factories
 
             if (xmlDoc != null)
             {
-                template = rawPool.New();
+                template = new GameObject();//rawPool.New();
 
                  //Find the element corresponding to the object name, if it exists...
                 if (xmlDoc.Root != null)

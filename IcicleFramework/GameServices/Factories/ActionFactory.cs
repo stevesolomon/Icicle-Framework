@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using IcicleFramework.Actions;
 using IcicleFramework.Pooling;
 using Microsoft.Xna.Framework;
@@ -20,7 +21,7 @@ namespace IcicleFramework.GameServices.Factories
 
         public override void Update(GameTime gameTime)
         {
-            actionPools.CleanUp();
+           // actionPools.CleanUp();
 
             base.Update(gameTime);
         }
@@ -49,7 +50,17 @@ namespace IcicleFramework.GameServices.Factories
 
         public IGameAction GetAction(Type type)
         {
-            var action = actionPools.New(type);
+            //var action = actionPools.New(type);
+           // action.Initialize();
+
+            var constructor = type.GetConstructor(
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+                null,
+                new Type[] { },
+                null
+            );
+
+            var action = constructor.Invoke(null) as IGameAction;
             action.Initialize();
 
             return action;

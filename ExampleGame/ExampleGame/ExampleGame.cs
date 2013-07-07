@@ -29,11 +29,10 @@ namespace ExampleGame
     public class ExampleGame : Game
     {
         public static GraphicsDeviceManager Graphics { get; private set; }
+
         SpriteBatch spriteBatch;
 
         private DebugViewXNA debugView; 
-        
-        private Level level;
         
         private Renderer renderer;
 
@@ -150,7 +149,7 @@ namespace ExampleGame
         {
             
         }
-        bool buildLevel = false;
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -164,8 +163,6 @@ namespace ExampleGame
                 this.Exit();
 
             logicManager.Update(gameTime);
-
-            
 
             //Hey wow this is suuuper bad code positioning but it's not always going to be like this okay ;)
             /*if (!buildLevel)
