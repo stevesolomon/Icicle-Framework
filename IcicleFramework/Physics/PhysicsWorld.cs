@@ -5,7 +5,6 @@ using FarseerPhysics.Dynamics.Contacts;
 using IcicleFramework.Components.Physics;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;
-using IcicleFramework.GameServices.Factories;
 using Microsoft.Xna.Framework;
 
 namespace IcicleFramework.Physics
@@ -19,24 +18,27 @@ namespace IcicleFramework.Physics
         public PhysicsWorld(RectangleF worldSpace)
             : base(Vector2.Zero)
         {
-            this.collisionEvents = new Dictionary<Guid, PhysicsCollisionHandler>();
-            this.bodyDictionary =  new Dictionary<string, Body>();
+            collisionEvents = new Dictionary<Guid, PhysicsCollisionHandler>();
+            bodyDictionary =  new Dictionary<string, Body>();
         }
 
         public void Initialize()
         {
-            IGameObjectFactory factory = GameServiceManager.GetService<IGameObjectFactory>();
+            var factory = GameServiceManager.GetService<IGameObjectManager>();
 
             if (factory != null)
-                factory.OnGameObjectCreated += OnGameObjectCreated;
+            {
+                factory.OnGameObjectAdded += OnGameObjectAdded;
+                factory.OnGameObjectRemoved += OnGameObjectRemoved;
+            }
 
-            this.BodyRemoved += OnBodyRemoved;
+            BodyRemoved += OnBodyRemoved;
 
         }
 
         protected void OnBodyRemoved(Body body)
         {
-            FarseerUserData userData = new FarseerUserData();
+            var userData = new FarseerUserData();
 
             if (body.UserData != null)
                 userData = (FarseerUserData) body.UserData;
@@ -45,14 +47,12 @@ namespace IcicleFramework.Physics
                 bodyDictionary.Remove(userData.Name);
         }
 
-        private void OnGameObjectCreated(IGameObject newObject)
+        private void OnGameObjectAdded(IGameObject newObject)
         {
-            IPhysicsComponent collisionComponent = newObject.GetComponent<IPhysicsComponent>();
+            var collisionComponent = newObject.GetComponent<IPhysicsComponent>();
 
             if (collisionComponent != null)
             {
-                newObject.OnDestroyed += OnGameObjectDestroyed;
-
                 //Subscribe to the collision event for each body.
                 for (int i = 0; i < collisionComponent.NumBodies; i++)
                      collisionComponent.GetBody(i).OnCollision += OnCollision;
@@ -68,7 +68,7 @@ namespace IcicleFramework.Physics
 
         public void RegisterBody(Body body)
         {
-            FarseerUserData userData = (FarseerUserData) body.UserData;
+            var userData = (FarseerUserData) body.UserData;
 
             if (userData.Name != null && !bodyDictionary.ContainsKey(userData.Name))
                 bodyDictionary.Add(userData.Name, body);
@@ -76,10 +76,10 @@ namespace IcicleFramework.Physics
 
         private bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            bool completeCollision = true;
+            var completeCollision = true;
 
-            IPhysicsComponent collisionComponentA = fixtureA.UserData as IPhysicsComponent;
-            IPhysicsComponent collisionComponentB = fixtureB.UserData as IPhysicsComponent;
+            var collisionComponentA = fixtureA.UserData as IPhysicsComponent;
+            var collisionComponentB = fixtureB.UserData as IPhysicsComponent;
             
             if (collisionComponentA != null && collisionComponentB != null && collisionEvents.ContainsKey(collisionComponentA.Parent.GUID))
                 collisionEvents[collisionComponentA.Parent.GUID](collisionComponentA, collisionComponentB, contact);
@@ -87,13 +87,13 @@ namespace IcicleFramework.Physics
             return completeCollision;
         }
 
-        private void OnGameObjectDestroyed(IGameObject gameObject)
+        private void OnGameObjectRemoved(IGameObject gameObject)
         {
-            IPhysicsComponent collisionComponent = gameObject.GetComponent<IPhysicsComponent>();
+            var collisionComponent = gameObject.GetComponent<IPhysicsComponent>();
 
             if (collisionComponent != null)
             {
-                for (int i = 0; i < collisionComponent.NumBodies; i++)
+                for (var i = 0; i < collisionComponent.NumBodies; i++)
                 {
                     RemoveBody(collisionComponent.GetBody(i));
                 }
@@ -107,7 +107,7 @@ namespace IcicleFramework.Physics
 
         public bool SubscribeCollisionEvent(Guid GUID, PhysicsCollisionHandler collisionHandler)
         {
-            bool subscribed = false;
+            var subscribed = false;
 
             if (collisionEvents.ContainsKey(GUID))
             {

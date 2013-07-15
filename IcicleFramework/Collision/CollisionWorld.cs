@@ -163,10 +163,10 @@ namespace IcicleFramework.Collision
 
         public override void Initialize()
         {
-            IGameObjectFactory factory = GameServiceManager.GetService<IGameObjectFactory>();
+            var gameObjectManager = GameServiceManager.GetService<IGameObjectManager>();
 
-            if (factory != null)
-                factory.OnGameObjectCreated += OnGameObjectCreated;
+            if (gameObjectManager != null)
+                gameObjectManager.OnGameObjectAdded += OnGameObjectAdded;
 
             ResumeSimulation();
         }
@@ -233,7 +233,7 @@ namespace IcicleFramework.Collision
             }
         }
 
-        private void OnGameObjectCreated(IGameObject newObject)
+        private void OnGameObjectAdded(IGameObject newObject)
         {
             if (newObject.GetComponent<ICollisionComponent>() != null)
                 RegisterObject(newObject);

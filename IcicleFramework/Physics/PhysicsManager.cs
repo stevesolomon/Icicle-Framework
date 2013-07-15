@@ -5,7 +5,6 @@ using FarseerPhysics.Dynamics.Contacts;
 using IcicleFramework.Components.Physics;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;
-using IcicleFramework.GameServices.Factories;
 using Microsoft.Xna.Framework;
 
 namespace IcicleFramework.Physics
@@ -28,17 +27,17 @@ namespace IcicleFramework.Physics
 
         public override void Initialize()
         {
-            IGameObjectFactory factory = GameServiceManager.GetService<IGameObjectFactory>();
+            var gameObjectManager = GameServiceManager.GetService<IGameObjectManager>();
 
-            if (factory != null)
-                factory.OnGameObjectCreated += OnGameObjectCreated;
+            if (gameObjectManager != null)
+                gameObjectManager.OnGameObjectAdded += OnGameObjectAddedHandler;
 
             PhysicsWorld.BodyRemoved += OnBodyRemoved;
         }
 
-        private void OnGameObjectCreated(IGameObject newObject)
+        private void OnGameObjectAddedHandler(IGameObject newObject)
         {
-            IPhysicsComponent physicsComponent = newObject.GetComponent<IPhysicsComponent>();
+            var physicsComponent = newObject.GetComponent<IPhysicsComponent>();
 
             if (physicsComponent != null)
             {
@@ -52,7 +51,7 @@ namespace IcicleFramework.Physics
 
         private void OnGameObjectDestroyed(IGameObject gameObject)
         {
-            IPhysicsComponent collisionComponent = gameObject.GetComponent<IPhysicsComponent>();
+            var collisionComponent = gameObject.GetComponent<IPhysicsComponent>();
 
             if (collisionComponent != null)
             {
@@ -63,15 +62,15 @@ namespace IcicleFramework.Physics
 
         private bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
         {
-            bool completeCollision = true;
+            var completeCollision = true;
 
-            FarseerUserData userDataA = fixtureA.Body.UserData as FarseerUserData;
-            FarseerUserData userDataB = fixtureB.Body.UserData as FarseerUserData;
+            var userDataA = fixtureA.Body.UserData as FarseerUserData;
+            var userDataB = fixtureB.Body.UserData as FarseerUserData;
 
             if (userDataA != null && userDataB != null)
             {
-                IPhysicsComponent collisionComponentA = userDataA.Owner;
-                IPhysicsComponent collisionComponentB = userDataB.Owner;
+                var collisionComponentA = userDataA.Owner;
+                var collisionComponentB = userDataB.Owner;
 
                 if (collisionComponentA != null && collisionComponentB != null && collisionEvents.ContainsKey(collisionComponentA.Parent.GUID))
                     collisionEvents[collisionComponentA.Parent.GUID](collisionComponentA, collisionComponentB, contact);
@@ -83,7 +82,7 @@ namespace IcicleFramework.Physics
 
         protected void OnBodyRemoved(Body body)
         {
-            FarseerUserData userData = new FarseerUserData();
+            var userData = new FarseerUserData();
 
             if (body.UserData != null)
                 userData = (FarseerUserData) body.UserData;
@@ -94,7 +93,7 @@ namespace IcicleFramework.Physics
 
         public void RegisterBody(Body body)
         {
-            FarseerUserData userData = (FarseerUserData)body.UserData;
+            var userData = (FarseerUserData)body.UserData;
 
             if (userData.Name != null && !bodyDictionary.ContainsKey(userData.Name))
                 bodyDictionary.Add(userData.Name, body);

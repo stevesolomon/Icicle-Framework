@@ -50,10 +50,10 @@ namespace IcicleFramework.GameServices
  
         public override void Initialize()
         {
-            IGameObjectFactory factory = GameServiceManager.GetService<IGameObjectFactory>();
+            var factory = GameServiceManager.GetService<IGameObjectFactory>();
 
             if (factory != null)
-                factory.OnGameObjectCreated += OnGameObjectCreated;
+                factory.OnGameObjectCreated += OnGameObjectCreatedHandler;
         }
 
         public override void Update(GameTime gameTime)
@@ -77,7 +77,7 @@ namespace IcicleFramework.GameServices
             newGameObjects.Clear();
         }
         
-        protected void OnGameObjectCreated(IGameObject newObject)
+        protected void OnGameObjectCreatedHandler(IGameObject newObject)
         {
             Add(newObject);
         }
@@ -127,18 +127,18 @@ namespace IcicleFramework.GameServices
 
         public List<IGameObject> FindAllWithMetadata(string metaName)
         {
-            List<IGameObject> foundObjects = new List<IGameObject>();
+            var foundObjects = new List<IGameObject>();
 
             //For now, we have to scan through all of the game objects in order to figure out
             //which ones may or may not contain the given metadata.
             //A future improvement may be to store indices on metadata for quicker lookup.
-            foreach (IGameObject gameObject in gameObjects.Values)
+            foreach (var gameObject in gameObjects.Values)
             {
                 if (gameObject.HasMetadata(metaName))
                     foundObjects.Add(gameObject);
             }
 
-            foreach (IGameObject gameObject in newGameObjects)
+            foreach (var gameObject in newGameObjects)
             {
                 if (gameObject.HasMetadata(metaName))
                     foundObjects.Add(gameObject);
@@ -149,12 +149,12 @@ namespace IcicleFramework.GameServices
 
         public List<IGameObject> FindAllWithComponent<T>() where T : IBaseComponent
         {
-            List<IGameObject> foundObjects = new List<IGameObject>();
+            var foundObjects = new List<IGameObject>();
 
             //Like searching for all game objects with a given metadata item, this requires us to look
             //at all of the gameobjects, and check if they have the given component.
             //A future improvement may be to store indices on components for quicker lookup.
-            foreach (IGameObject gameObject in gameObjects.Values)
+            foreach (var gameObject in gameObjects.Values)
             {
                 IBaseComponent component = gameObject.GetComponent<T>();
 
@@ -165,7 +165,7 @@ namespace IcicleFramework.GameServices
                 }
             }
 
-            foreach (IGameObject gameObject in newGameObjects)
+            foreach (var gameObject in newGameObjects)
             {
                 IBaseComponent component = gameObject.GetComponent<T>();
 
@@ -186,7 +186,7 @@ namespace IcicleFramework.GameServices
             //In the worst case we'll have to loop through all game objects, but we'll break the loop short
             //when we find the first game object with the given metadata.
             //We could still improve this in the future with an index on metadata and simply grab the first listed game object there.
-            foreach (IGameObject gameObject in gameObjects.Values)
+            foreach (var gameObject in gameObjects.Values)
             {
                 if (gameObject.HasMetadata(metaName))
                 {
@@ -197,7 +197,7 @@ namespace IcicleFramework.GameServices
 
             if (found == null)
             {
-                foreach (IGameObject gameObject in newGameObjects)
+                foreach (var gameObject in newGameObjects)
                 {
                     if (gameObject.HasMetadata(metaName))
                     {
@@ -214,7 +214,7 @@ namespace IcicleFramework.GameServices
         {
             IGameObject found = null;
 
-            foreach (IGameObject gameObject in gameObjects.Values)
+            foreach (var gameObject in gameObjects.Values)
             {
                 IBaseComponent component = gameObject.GetComponent<T>();
 

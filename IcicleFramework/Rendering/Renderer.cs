@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using IcicleFramework.Components.Renderable;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;
@@ -32,7 +33,7 @@ namespace IcicleFramework.Rendering
 
         private int screenHeight;
 
-        protected IGameObjectFactory gameObjectFactory;
+        protected IGameObjectManager gameObjectManager;
 
         protected List<IRenderComponent> renderComponents; 
         
@@ -60,7 +61,7 @@ namespace IcicleFramework.Rendering
             this.resolutionManager = new ResolutionManager();
             this.resolutionManager.Initialize(ref graphics);
 
-            RasterizerState state = new RasterizerState();
+            var state = new RasterizerState();
             state.FillMode = FillMode.WireFrame;
             spriteBatch.GraphicsDevice.RasterizerState = state;
 
@@ -114,30 +115,29 @@ namespace IcicleFramework.Rendering
 
         public override void Initialize()
         {
-            //Subscribe to the game object created event on the GameObjectFactory.
-            gameObjectFactory = GameServiceManager.GetService<IGameObjectFactory>();
-            gameObjectFactory.OnGameObjectCreated += OnGameObjectCreated;
+            //Subscribe to the game object added and removed events.
+            gameObjectManager = GameServiceManager.GetService<IGameObjectManager>();
+            gameObjectManager.OnGameObjectAdded += OnGameObjectAdded;
+            gameObjectManager.OnGameObjectRemoved += OnGameObjectRemovedHandler;
         }
 
-        private void OnGameObjectCreated(IGameObject newObject)
+        private void OnGameObjectRemovedHandler(IGameObject gameObject)
         {
-            IRenderComponent renderComponent = newObject.GetComponent<IRenderComponent>();
-
-            if (renderComponent != null)
-            {
-                renderComponents.Add(renderComponent);
-
-                newObject.OnDestroyed += OnGameObjectDestroyed;
-            }
-        }
-
-        private void OnGameObjectDestroyed(IGameObject sender)
-        {
-            IRenderComponent renderComponent = sender.GetComponent<IRenderComponent>();
+            var renderComponent = gameObject.GetComponent<IRenderComponent>();
 
             if (renderComponent != null)
             {
                 renderComponents.Remove(renderComponent);
+            }
+        }
+
+        private void OnGameObjectAdded(IGameObject newObject)
+        {
+            var renderComponent = newObject.GetComponent<IRenderComponent>();
+
+            if (renderComponent != null)
+            {
+                renderComponents.Add(renderComponent);
             }
         }
     }

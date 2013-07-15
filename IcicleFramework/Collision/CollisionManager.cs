@@ -51,10 +51,13 @@ namespace IcicleFramework.Collision
 
         public override void Initialize()
         {
-            IGameObjectFactory factory = GameServiceManager.GetService<IGameObjectFactory>();
+            var gameObjectManager = GameServiceManager.GetService<IGameObjectManager>();
 
-            if (factory != null)
-                factory.OnGameObjectCreated += OnGameObjectCreated;
+            if (gameObjectManager != null)
+            {
+                gameObjectManager.OnGameObjectAdded += OnGameObjectAdded;
+                gameObjectManager.OnGameObjectRemoved += OnGameObjectRemoved;
+            }
 
             layerManager = GameServiceManager.GetService<ILayerManager>();
 
@@ -124,12 +127,10 @@ namespace IcicleFramework.Collision
         /// <param name="sender">The IMoveable object that has moved, triggering this OnMove event.</param>
         private void OnMove(IGameObject sender)
         {
-            ICollisionComponent collisionComp = sender.GetComponent<ICollisionComponent>();
+            var collisionComp = sender.GetComponent<ICollisionComponent>();
 
             if (Active && collisionComp != null)
             {
-                //collisionTree.ObjectMoved(collisionComp);
-
                 //Add this component to the list of components that have moved this frame.
                 if (!movedLastFrame.ContainsKey(sender.GUID))
                 {
@@ -138,16 +139,15 @@ namespace IcicleFramework.Collision
             }
         }
 
-        private void OnGameObjectCreated(IGameObject newObject)
+        private void OnGameObjectAdded(IGameObject newObject)
         {
             if (newObject.GetComponent<ICollisionComponent>() != null)
                 RegisterObject(newObject);
         }
 
-        private void OnCollisionComponentDestroyed(IBaseComponent baseComponent)
+        private void OnGameObjectRemoved(IGameObject gameObject)
         {
-            var collisionComponent = baseComponent as ICollisionComponent;
-            var gameObject = baseComponent.Parent;
+            var collisionComponent = gameObject.GetComponent<ICollisionComponent>();
 
             if (collisionComponent != null)
                 collisionTree.RemoveObject(collisionComponent);
@@ -179,7 +179,6 @@ namespace IcicleFramework.Collision
             //}
 
             gameObject.OnMove -= OnMove;
-            collisionComponent.OnDestroyed -= OnCollisionComponentDestroyed;
         }
 
         private void RegisterObject(IGameObject theObject)
@@ -188,8 +187,6 @@ namespace IcicleFramework.Collision
             theObject.OnMove += OnMove;
 
             var collisionComponent = theObject.GetComponent<ICollisionComponent>();
-
-            collisionComponent.OnDestroyed += OnCollisionComponentDestroyed;
 
             collisionTree.AddObject(collisionComponent);
 

@@ -17,57 +17,56 @@ namespace ExampleGame.GameSystems
         
         public ScoreManager()
         {
-            this.scores = new Dictionary<Guid, IScoreComponent>();
-            this.scoreChangedSubscribers = new Dictionary<Guid, List<ScoreChangedHandler>>();
+            scores = new Dictionary<Guid, IScoreComponent>();
+            scoreChangedSubscribers = new Dictionary<Guid, List<ScoreChangedHandler>>();
         }
 
         public override void Initialize()
         {
-            IGameObjectFactory factory = GameServiceManager.GetService<IGameObjectFactory>();
+            var gameObjectManager = GameServiceManager.GetService<IGameObjectManager>();
 
-            if (factory != null)
-                factory.OnGameObjectCreated += OnGameObjectCreated;
+            if (gameObjectManager != null)
+            {
+                gameObjectManager.OnGameObjectAdded += OnGameObjectAdded;
+                gameObjectManager.OnGameObjectRemoved += OnGameObjectRemoved;
+            }
         }
 
-        protected void OnGameObjectCreated(IGameObject newObject)
+        protected void OnGameObjectAdded(IGameObject newObject)
         {
             //Register the score component if the IGameObject has one.
-            IScoreComponent component = newObject.GetComponent<IScoreComponent>();
+            var component = newObject.GetComponent<IScoreComponent>();
 
             if (component != null)
             {
-                this.scores.Add(newObject.GUID, component);
+                scores.Add(newObject.GUID, component);
             }
-
-            newObject.OnDestroyed += OnGameObjectDestroyed;
         }
 
-        private void OnGameObjectDestroyed(object sender)
+        private void OnGameObjectRemoved(IGameObject removedObject)
         {
-            var gameObject = sender as IGameObject;
-
-            if (gameObject == null) 
+            if (removedObject == null) 
                 return;
 
-            if (scores.ContainsKey(gameObject.GUID))
+            if (scores.ContainsKey(removedObject.GUID))
             {
-                scores.Remove(gameObject.GUID);
+                scores.Remove(removedObject.GUID);
             }
 
-            if (scoreChangedSubscribers.ContainsKey(gameObject.GUID))
+            if (scoreChangedSubscribers.ContainsKey(removedObject.GUID))
             {
-                scoreChangedSubscribers.Remove(gameObject.GUID);
+                scoreChangedSubscribers.Remove(removedObject.GUID);
             }
         }
 
         protected void OnScoreChanged(IScoreComponent source, float newPoints)
         {
             //Notify anyone subscribed to this object's score!
-            if (this.scoreChangedSubscribers.ContainsKey(source.Parent.GUID))
+            if (scoreChangedSubscribers.ContainsKey(source.Parent.GUID))
             {
-                for (int i = 0; i < this.scoreChangedSubscribers[source.Parent.GUID].Count; i++)
+                for (var i = 0; i < scoreChangedSubscribers[source.Parent.GUID].Count; i++)
                 {
-                    this.scoreChangedSubscribers[source.Parent.GUID][i](source);
+                    scoreChangedSubscribers[source.Parent.GUID][i](source);
                 }
             }
         }
@@ -85,7 +84,7 @@ namespace ExampleGame.GameSystems
 
         public float GetScore(IGameObject gameObject)
         {
-            float score = -1.0f;
+            var score = -1.0f;
 
             if (scores.ContainsKey(gameObject.GUID))
                 score = scores[gameObject.GUID].Score;
@@ -95,10 +94,10 @@ namespace ExampleGame.GameSystems
         
         public void SubscribeToScoreChanged(IGameObject objectOfInterest, ScoreChangedHandler scoreChangedDelegate)
         {
-            if (!this.scoreChangedSubscribers.ContainsKey(objectOfInterest.GUID))
-                this.scoreChangedSubscribers.Add(objectOfInterest.GUID, new List<ScoreChangedHandler>());
+            if (!scoreChangedSubscribers.ContainsKey(objectOfInterest.GUID))
+                scoreChangedSubscribers.Add(objectOfInterest.GUID, new List<ScoreChangedHandler>());
 
-            this.scoreChangedSubscribers[objectOfInterest.GUID].Add(scoreChangedDelegate);
+            scoreChangedSubscribers[objectOfInterest.GUID].Add(scoreChangedDelegate);
         }
 
     }
