@@ -73,8 +73,10 @@ namespace IcicleFramework.Entities
 
         public Vector2 LastMovementAmount
         {
-            get { return Position - lastPosition; }
+            get { return Position - LastFramePosition; }
         }
+
+        public Vector2 LastFramePosition { get { return lastPosition; } }
 
         public float Rotation
         {
@@ -170,7 +172,7 @@ namespace IcicleFramework.Entities
 
             componentFactory = GameServiceManager.GetService<IComponentFactory>();
 
-            foreach (IBaseComponent component in components.Values)
+            foreach (var component in components.Values)
             {
                 component.Initialize();
                 component.Active = Active;
@@ -182,7 +184,7 @@ namespace IcicleFramework.Entities
 
         public void PostInitialize()
         {
-            foreach (IBaseComponent component in components.Values)
+            foreach (var component in components.Values)
                 component.PostInitialize();
         }
 
@@ -191,7 +193,7 @@ namespace IcicleFramework.Entities
             if (!Active)
                 return;
 
-            foreach (IBaseComponent component in components.Values)
+            foreach (var component in components.Values)
             {
                 component.Update(gameTime);
             }
@@ -200,19 +202,19 @@ namespace IcicleFramework.Entities
             {
                 if (OnMove != null)
                     OnMove(this);
-
-                lastPosition = position;
             }
 
+            lastPosition = position;
+
             if (HasRotated)
-            lastRotation = rotation;
+                lastRotation = rotation;
         }
         
         public void Load(ContentManager content)
         {
-            foreach (IBaseComponent component in components.Values)
+            foreach (var component in components.Values)
             {
-                ILoadable loadable = component as ILoadable;
+                var loadable = component as ILoadable;
 
                 if (loadable != null)
                     loadable.Load(content);
@@ -311,12 +313,12 @@ namespace IcicleFramework.Entities
 
             foreach (var elem in elems)
             {
-                XAttribute nameAttrib = elem.Attribute("name");
+                var nameAttrib = elem.Attribute("name");
                 if (nameAttrib != null)
                 {
                     Metadata.Add(nameAttrib.Value, null);
 
-                    XAttribute valueAttrib = elem.Attribute("value");
+                    var valueAttrib = elem.Attribute("value");
 
                     if (valueAttrib != null)
                         Metadata[nameAttrib.Value] = valueAttrib.Value;

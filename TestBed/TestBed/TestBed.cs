@@ -1,8 +1,7 @@
-using System.Linq;
 using IcicleFramework;
 using IcicleFramework.Cameras;
 using IcicleFramework.Collision;
-using IcicleFramework.Components.Renderable;
+using IcicleFramework.Collision.QuadTree;
 using IcicleFramework.DebugComponents;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;
@@ -10,19 +9,17 @@ using IcicleFramework.GameServices.Factories;
 using IcicleFramework.GameServices.HelperServices;
 using IcicleFramework.GameServices.ParticleServices;
 using IcicleFramework.Inputs;
-using IcicleFramework.Physics;
 using IcicleFramework.Rendering;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Newtonsoft.Json;
 
 namespace TestBed
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class TestBed : Microsoft.Xna.Framework.Game
     {
         public static GraphicsDeviceManager Graphics { get; private set; }
 
@@ -32,7 +29,7 @@ namespace TestBed
 
         private Renderer renderer;
 
-        public Game1()
+        public TestBed()
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";

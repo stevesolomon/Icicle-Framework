@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using ExampleGame.Components.Score;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;
-using IcicleFramework.GameServices.Factories;
 
 namespace ExampleGame.GameSystems
 {

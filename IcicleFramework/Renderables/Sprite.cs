@@ -46,7 +46,7 @@ namespace IcicleFramework.Renderables
        // public override void Draw(SpriteBatch spriteBatch)
        // {
       //      if (parent != null)
-      //          spriteBatch.Draw(texture, (Position + Offset) + Origin, Source, ColorChannel, Rotation, Origin, Scale, SpriteEffects.None, 1.0f);
+      //          spriteBatch.Draw(texture, (Position + Offset) + Origin, Parent, ColorChannel, Rotation, Origin, Scale, SpriteEffects.None, 1.0f);
       //  }
         
         #endregion

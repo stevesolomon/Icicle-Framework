@@ -25,13 +25,13 @@ namespace ExampleGameSHMUP.GameServices
         {
             var test = gameObjectFactory.GetGameObject("player", 400f, 400f);
 
-            PlayerManager manager = (PlayerManager)GameServiceManager.GetService(typeof(PlayerManager));
-            Player player = manager.GetPlayer(LogicalPlayerIndex.One);
+            var manager = (PlayerManager)GameServiceManager.GetService(typeof(PlayerManager));
+            var player = manager.GetPlayer(LogicalPlayerIndex.One);
             test.UpdateMetadata("player", player);
             test.PostInitialize();
             test.Active = true;
 
-            test = gameObjectFactory.GetGameObject("EnemySpawner", 0f, 0f);
+            test = gameObjectFactory.GetGameObject("EnemySpawner");
             test.PostInitialize();
             test.Active = true;
 
@@ -43,7 +43,7 @@ namespace ExampleGameSHMUP.GameServices
         public override void Update(GameTime gameTime)
         {
             var gameObjects = GameServiceManager.GetService<IGameObjectManager>().GetAll();
-            foreach (IGameObject gameObject in gameObjects)
+            foreach (var gameObject in gameObjects)
             {
                 if (gameObject.Active)
                     gameObject.Update(gameTime);

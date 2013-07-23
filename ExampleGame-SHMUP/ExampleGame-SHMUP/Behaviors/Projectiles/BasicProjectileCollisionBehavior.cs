@@ -3,6 +3,7 @@ using IcicleFramework.Actions;
 using IcicleFramework.Actions.Damage;
 using IcicleFramework.Actions.Destruction;
 using IcicleFramework.Behaviors;
+using IcicleFramework.Components;
 using IcicleFramework.Components.Collision;
 using IcicleFramework.Components.Damage;
 
@@ -39,7 +40,7 @@ namespace ExampleGameSHMUP.Behaviors.Projectiles
             sequence.AddAction(damageAction);
             sequence.AddAction(destroyAction);
 
-            Parent.FireAction(sequence, collided.Parent);
+            Parent.FireAction(sequence, ((IBaseComponent) collided).Parent);
 
             //And now let's destroy ourself!
             var selfDestroy = Parent.ActionFactory.GetAction<DestroyGameObjectAction>();

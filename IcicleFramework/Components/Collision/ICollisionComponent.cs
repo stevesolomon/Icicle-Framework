@@ -1,4 +1,5 @@
 ﻿using IcicleFramework.Collision;
+using IcicleFramework.Collision.QuadTree;
 
 namespace IcicleFramework.Components.Collision
 {
@@ -8,7 +9,7 @@ namespace IcicleFramework.Components.Collision
 
     public delegate void OnCollisionStoppedHandler(ICollisionComponent source, ICollisionComponent previousCollided);
 
-    public interface ICollisionComponent : IBaseComponent, IQuadStorable
+    public interface ICollisionComponent : IBaseComponent, IBoundingBox
     {
         event OnCollisionHandler OnCollision;
 

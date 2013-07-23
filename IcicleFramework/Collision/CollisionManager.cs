@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using IcicleFramework.Collision.QuadTree;
 using IcicleFramework.Components;
 using IcicleFramework.Components.Collision;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;
-using IcicleFramework.GameServices.Factories;
 using IcicleFramework.Pooling;
 using Microsoft.Xna.Framework;
 
@@ -17,13 +16,17 @@ namespace IcicleFramework.Collision
 
         protected Dictionary<Guid, OnCollisionStoppedHandler> onCollisionStoppedEventListeners;
 
-        protected QuadTreeOld<ICollisionComponent> collisionTree;
+        protected QuadTree.QuadTree<ICollisionComponent> collisionTree;
 
         protected Dictionary<Guid, CollisionList> currentCollisions;
 
         protected PoolNew<CollisionList> listPool; 
 
+        protected Dictionary<Guid, IBoundingBox> quadTreeReturnList;
+
         protected List<ICollisionComponent> tempList;
+
+        protected List<IBoundingBox> currentCollisionsList; 
 
         protected Dictionary<Guid, ICollisionComponent> movedLastFrame;
 
@@ -39,12 +42,14 @@ namespace IcicleFramework.Collision
         {
             listPool = new PoolNew<CollisionList>(typeof(CollisionList), 1000);
             currentCollisions = new Dictionary<Guid, CollisionList>();
-            tempList = new List<ICollisionComponent>(64);
+            currentCollisionsList = new List<IBoundingBox>(128);
+            tempList = new List<ICollisionComponent>();
+            quadTreeReturnList = new Dictionary<Guid, IBoundingBox>(64);
             movedLastFrame = new Dictionary<Guid, ICollisionComponent>(512);
             onCollisionEventListeners = new Dictionary<Guid, OnCollisionHandler>();
             onCollisionStoppedEventListeners = new Dictionary<Guid, OnCollisionStoppedHandler>();
 
-            collisionTree = new QuadTreeOld<ICollisionComponent>(4, new RectangleF(worldSpace.X, worldSpace.Y, worldSpace.Width, worldSpace.Height));
+            collisionTree = new QuadTree.QuadTree<ICollisionComponent>(new RectangleF(worldSpace.X, worldSpace.Y, worldSpace.Width, worldSpace.Height), 4, 2);
         }
 
         #endregion
@@ -150,7 +155,7 @@ namespace IcicleFramework.Collision
             var collisionComponent = gameObject.GetComponent<ICollisionComponent>();
 
             if (collisionComponent != null)
-                collisionTree.RemoveObject(collisionComponent);
+                collisionTree.Remove(collisionComponent);
 
             if (onCollisionEventListeners.ContainsKey(gameObject.GUID))
                 onCollisionEventListeners.Remove(gameObject.GUID);
@@ -188,7 +193,7 @@ namespace IcicleFramework.Collision
 
             var collisionComponent = theObject.GetComponent<ICollisionComponent>();
 
-            collisionTree.AddObject(collisionComponent);
+            collisionTree.Insert(collisionComponent);
 
             //Add an entry to the current collision dictionary...
             currentCollisions.Add(theObject.GUID, listPool.New());
@@ -207,11 +212,11 @@ namespace IcicleFramework.Collision
 
         private void NotifyCollision(ICollisionComponent source, ICollisionComponent collider)
         {
-            if (source == null || source.Parent == null || collider == null || collider.Parent == null)
+            if (source == null || ((IBaseComponent) source).Parent == null || collider == null || ((IBaseComponent) collider).Parent == null)
                 return;
 
-            var sourceGUID = source.Parent.GUID;
-            var colliderGUID = collider.Parent.GUID;
+            var sourceGUID = ((IBaseComponent) source).Parent.GUID;
+            var colliderGUID = ((IBaseComponent) collider).Parent.GUID;
 
             //Notify any listeners of the source that it has collided with something
             if (onCollisionEventListeners.ContainsKey(sourceGUID) && onCollisionEventListeners[sourceGUID] != null)
@@ -228,11 +233,11 @@ namespace IcicleFramework.Collision
 
         private void NotifyCollisionStopped(ICollisionComponent source, ICollisionComponent previousCollider)
         {
-            if (source == null || source.Parent == null || previousCollider == null || previousCollider.Parent == null)
+            if (source == null || ((IBaseComponent) source).Parent == null || previousCollider == null || ((IBaseComponent) previousCollider).Parent == null)
                 return;
 
-            var sourceGUID = source.Parent.GUID;
-            var colliderGUID = previousCollider.Parent.GUID;
+            var sourceGUID = ((IBaseComponent) source).Parent.GUID;
+            var colliderGUID = ((IBaseComponent) previousCollider).Parent.GUID;
 
             //Notify any listeners of the source that it has stopped collided with what it was previously colliding with.
             if (onCollisionStoppedEventListeners.ContainsKey(sourceGUID) && onCollisionStoppedEventListeners[sourceGUID] != null)
@@ -252,9 +257,13 @@ namespace IcicleFramework.Collision
 
         public override void Update(GameTime gameTime)
         {
-            foreach (var gameObject in movedLastFrame)
+            foreach (var collisionComponent in movedLastFrame.Values)
             {
-                collisionTree.ObjectMoved(gameObject.Value);
+                collisionTree.ItemMoved(collisionComponent, 
+                                        new RectangleF(((IBaseComponent) collisionComponent).Parent.LastFramePosition.X,
+                                                       ((IBaseComponent) collisionComponent).Parent.LastFramePosition.Y,
+                                                       collisionComponent.BoundingBox2D.Width,
+                                                       collisionComponent.BoundingBox2D.Height));
             }
 
             //Update any of the existing collisions to ensure that:
@@ -315,35 +324,44 @@ namespace IcicleFramework.Collision
         {
             foreach (var moved in movedLastFrame)
             {
-                tempList.Clear();
-                collisionTree.GetCollidingWith(moved.Value, ref tempList);
-                tempList.Remove(moved.Value);
+                quadTreeReturnList.Clear();
+                collisionTree.GetCollidingWith(moved.Value, ref quadTreeReturnList);
+                quadTreeReturnList.Remove(moved.Value.Source.GUID);
 
-                CullLayers(moved.Value, tempList);
+                currentCollisionsList.Clear();
+
+                foreach (var item in quadTreeReturnList.Values)
+                {
+                    currentCollisionsList.Add(item);
+                }
+
+                CullLayers(moved.Value, currentCollisionsList);
                 
                 //Add any *new* collisions to the lists for each entity. 
-                foreach (var collision in tempList)
+                foreach (var collision in currentCollisionsList)
                 {
-                    if (!currentCollisions[moved.Key].Contains(collision))
+                    var collisionComponent = collision.Source.GetComponent<ICollisionComponent>();
+
+                    if (currentCollisions.ContainsKey(moved.Key) && !currentCollisions[moved.Key].Contains(collisionComponent))
                     {
-                        currentCollisions[moved.Key].Add(collision);
-                        NotifyCollision(moved.Value, collision);
+                        currentCollisions[moved.Key].Add(collisionComponent);
+                        NotifyCollision(moved.Value, collisionComponent);
                     }
 
-                    if (!currentCollisions[collision.Parent.GUID].Contains(moved.Value))
+                    if (currentCollisions.ContainsKey(collision.Source.GUID) && !currentCollisions[collision.Source.GUID].Contains(moved.Value))
                     {
-                        currentCollisions[collision.Parent.GUID].Add(moved.Value); 
-                        NotifyCollision(collision, moved.Value);
+                        currentCollisions[collision.Source.GUID].Add(moved.Value);
+                        NotifyCollision(collisionComponent, moved.Value);
                     }
                 }  
             }
         }
 
-        protected void CullLayers(ICollisionComponent moved, List<ICollisionComponent> list)
+        protected void CullLayers(ICollisionComponent moved, List<IBoundingBox> list)
         {
             for (int i = list.Count - 1; i >= 0 && i < list.Count; i--)
             {
-                if (layerManager != null && !layerManager.LayersInteract(moved.Parent.Layer, list[i].Parent.Layer))
+                if (layerManager != null && !layerManager.LayersInteract(moved.Parent.Layer, list[i].Source.Layer))
                 {
                     list.RemoveRange(i, 1);
                 }

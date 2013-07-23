@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using IcicleFramework.Components;
 using IcicleFramework.Components.Collision;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;
@@ -494,7 +495,7 @@ namespace IcicleFramework.Collision
         /// <param name="correctHorizontal">True if we are resolving along the X axis, false if we are resolving along the Y axis.</param>
         private void CorrectCollision(ICollisionComponent item, CorrectionVector2 correction, bool correctHorizontal)
         {
-            Vector2 newVector = item.Parent.Position;
+            Vector2 newVector = ((IBaseComponent) item).Parent.Position;
             //Vector2 newVelocity;
 
             //Vector2 originalPosition = item.Parent.Position;
@@ -513,7 +514,7 @@ namespace IcicleFramework.Collision
                 newVector.Y += correction.Y*(int) correction.DirectionY;
             }
 
-            item.Parent.Position = newVector;
+            ((IBaseComponent) item).Parent.Position = newVector;
             //item.Parent.Velocity = newVelocity;
 
             item.BoundingBox2D.Position = newVector;
@@ -598,8 +599,8 @@ namespace IcicleFramework.Collision
   
         private void NotifyCollision(ICollisionComponent source, ICollisionComponent collider, CorrectionVector2 collisionInfo)
         {
-            var sourceGUID = source.Parent.GUID;
-            var colliderGUID = collider.Parent.GUID;
+            var sourceGUID = ((IBaseComponent) source).Parent.GUID;
+            var colliderGUID = ((IBaseComponent) collider).Parent.GUID;
 
             //Notify any listeners of the source that it has collided with something
             if (collisionEvents.ContainsKey(sourceGUID) && collisionEvents[sourceGUID] != null)

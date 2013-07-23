@@ -43,7 +43,7 @@ namespace IcicleFramework.Collision
         /// <param name="worldSpace">The world-space area covered by this QuadTree.</param>
         public QuadTreeOld(int maxDepth, RectangleF worldSpace)
         {
-            root = new QuadNode<T>(worldSpace, null, false, 0, 0);
+            root = new QuadNode<T>(worldSpace, null, false, 0, maxDepth);
             this.maxDepth = maxDepth;
         }
 

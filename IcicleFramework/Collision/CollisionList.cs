@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using IcicleFramework.Components;
 using IcicleFramework.Components.Collision;
 using IcicleFramework.Entities;
 using IcicleFramework.Pooling;
@@ -30,7 +31,7 @@ namespace IcicleFramework.Collision
 
         public new void Add(ICollisionComponent value)
         {
-            if (value.Parent.GUID.Equals(Source.Parent.GUID))
+            if (((IBaseComponent) value).Parent.GUID.Equals(((IBaseComponent) Source).Parent.GUID))
                 return;
 
             base.Add(value);

@@ -10,7 +10,7 @@ namespace TestBed
         /// </summary>
         static void Main(string[] args)
         {
-            using (Game1 game = new Game1())
+            using (TestBed game = new TestBed())
             {
                 game.Run();
             }

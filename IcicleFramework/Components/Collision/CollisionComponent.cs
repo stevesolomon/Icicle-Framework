@@ -54,6 +54,8 @@ namespace IcicleFramework.Components.Collision
             }
         }
 
+        public IGameObject Source { get { return Parent; } }
+
         public CollisionComponent()
         {
             CollisionPriority = int.MaxValue;

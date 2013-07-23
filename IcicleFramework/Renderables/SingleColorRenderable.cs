@@ -21,7 +21,7 @@ namespace IcicleFramework.Renderables
 
             this.Texture = new Texture2D(gService.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             this.Texture.SetData(new[] {Color.White});
-            //this.Source = this.Texture.Bounds;
+            //this.Parent = this.Texture.Bounds;
         }
 
 

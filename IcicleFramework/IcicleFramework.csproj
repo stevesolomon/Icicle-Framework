@@ -141,6 +141,9 @@
     <Compile Include="Collision\CollisionWorld.cs" />
     <Compile Include="Collision\QuadTree.cs" />
     <Compile Include="Behaviors\BaseBehavior.cs" />
+    <Compile Include="Collision\QuadTree\IBoundingBox.cs" />
+    <Compile Include="Collision\QuadTree\QuadNode.cs" />
+    <Compile Include="Collision\QuadTree\QuadTree.cs" />
     <Compile Include="Components\Behaviors\BehaviorComponent.cs" />
     <Compile Include="Behaviors\Collision\PhysicsCollisionBehavior.cs" />
     <Compile Include="Behaviors\Death\BaseDeathBehavior.cs" />

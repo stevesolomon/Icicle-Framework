@@ -171,8 +171,8 @@ namespace IcicleFramework
         }
 
         /// <summary>Compares two rectangles for equality</summary>
-        /// <param name="first">Source rectangle</param>
-        /// <param name="second">Source rectangle</param>
+        /// <param name="first">Parent rectangle</param>
+        /// <param name="second">Parent rectangle</param>
         /// <returns>True if the rectangles are equal; false otherwise</returns>
         public static bool operator ==(RectangleF first, RectangleF second)
         {
@@ -184,8 +184,8 @@ namespace IcicleFramework
         }
 
         /// <summary>Compares two rectangles for inequality</summary>
-        /// <param name="first">Source rectangle</param>
-        /// <param name="second">Source rectangle</param>
+        /// <param name="first">Parent rectangle</param>
+        /// <param name="second">Parent rectangle</param>
         /// <returns>True if the rectangles are not equal; false otherwise</returns>
         public static bool operator !=(RectangleF first, RectangleF second)
         {

@@ -33,6 +33,11 @@ namespace IcicleFramework.Entities
         Vector2 LastMovementAmount { get; }
 
         /// <summary>
+        /// Gets the position this IGameObject was in during the last frame.
+        /// </summary>
+        Vector2 LastFramePosition { get; }
+
+        /// <summary>
         /// Gets or sets the rotation of this IGameObject and its components.
         /// </summary>
         float Rotation { get; set; }
