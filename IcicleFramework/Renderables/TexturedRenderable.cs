@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace IcicleFramework.Renderables
 {
-    public abstract class TexturedRenderable : BaseRenderable, ITextured
+    public abstract class TexturedRenderable : BaseRenderable, ITexturedRenderable
     {
         protected Texture2D texture;
         

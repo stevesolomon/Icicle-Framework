@@ -20,9 +20,9 @@ namespace IcicleFramework.Components.Gauges
 
         private Vector2 offset;
 
-        public ITextured Border { get; set; }
+        public ITexturedRenderable Border { get; set; }
 
-        public ITextured Bar { get; set; }
+        public ITexturedRenderable Bar { get; set; }
 
         public Vector2 Offset
         { 
@@ -116,14 +116,14 @@ namespace IcicleFramework.Components.Gauges
                     //Loading the bar element...
                     if (elements[i].Attribute("name").Value.Equals("bar", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        Bar = (ITextured) factory.GenerateRenderable(elements[i], this);
+                        Bar = (ITexturedRenderable) factory.GenerateRenderable(elements[i], this);
                         Bar.Parent = this;
                         Bar.Offset = Offset;
                     }
                     else if (elements[i].Attribute("name").Value.Equals("border",
                                                                         StringComparison.InvariantCultureIgnoreCase))
                     {
-                        Border = (ITextured) factory.GenerateRenderable(elements[i], this);
+                        Border = (ITexturedRenderable) factory.GenerateRenderable(elements[i], this);
                         Border.Parent = this;
                         Border.Offset = Offset;
                     }

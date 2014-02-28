@@ -67,7 +67,7 @@ namespace IcicleFramework
                 }
 
                 layerNameToIndexMapping.Add(name, currIndex);
-
+                    
                 currIndex++;
             }
         }

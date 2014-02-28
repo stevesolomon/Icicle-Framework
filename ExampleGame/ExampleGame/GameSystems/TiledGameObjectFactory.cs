@@ -53,7 +53,7 @@ namespace ExampleGame.GameSystems
 
                         if (renderComponent != null)
                         {
-                            ITextured renderable = (ITextured)renderComponent.GetRenderable(0);
+                            ITexturedRenderable renderable = (ITexturedRenderable)renderComponent.GetRenderable(0);
 
                             if (renderable != null)
                             {

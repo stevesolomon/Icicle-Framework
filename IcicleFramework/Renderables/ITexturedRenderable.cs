@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace IcicleFramework.Renderables
 {
-    public interface ITextured : IRenderable
+    public interface ITexturedRenderable : IRenderable
     {
         string AssetName { get; set; }
 

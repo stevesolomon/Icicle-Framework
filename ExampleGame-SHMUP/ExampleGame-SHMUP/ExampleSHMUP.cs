@@ -61,12 +61,12 @@ namespace ExampleGameSHMUP
             Components.Add(new GameObjectInfoDisplay(this, 0.5f, "Content\\Fonts\\debugfont", new Vector2(0f, 25f)));
 
 
-            ComponentFactory componentFactory = new ComponentFactory();
-            GameObjectFactory gameObjectFactory = new GameObjectFactory(this.Content);
+            var componentFactory = new ComponentFactory();
+            var gameObjectFactory = new GameObjectFactory(this.Content);
             gameObjectFactory.PathToXML = "EntityDefinitions\\entity.xml";
 
-            InputHandler inputHandler = new InputHandler(false);
-            PlayerManager playerManager = new PlayerManager();
+            var inputHandler = new InputHandler(false);
+            var playerManager = new PlayerManager();
 
             var collisionManager = new CollisionManager(new RectangleF(0f, 0f, Constants.InternalResolutionWidth, Constants.InternalResolutionHeight));
 
@@ -85,13 +85,13 @@ namespace ExampleGameSHMUP
 
             cameraService =  new CameraManager();
 
-            BasicCamera2D camera = new BasicCamera2D(GraphicsDevice, "main");
+            var camera = new BasicCamera2D(GraphicsDevice, "main");
 
             cameraService.AddCamera(camera);
 
             GameServiceManager.AddService(typeof(IGameObjectFactory), gameObjectFactory);
             GameServiceManager.AddService(typeof(IComponentFactory), componentFactory);
-            GameServiceManager.AddService(typeof(RenderableFactory), new RenderableFactory(this.Content));
+            GameServiceManager.AddService(typeof(RenderableFactory), new RenderableFactory(Content));
             GameServiceManager.AddService(typeof(IInputHandler), inputHandler);
             GameServiceManager.AddService(typeof(PlayerManager), playerManager);
             GameServiceManager.AddService(typeof(IGameObjectManager), new GameObjectManager());
@@ -102,13 +102,13 @@ namespace ExampleGameSHMUP
             GameServiceManager.AddService(typeof(IParticleManager), particleManager);
             GameServiceManager.AddService(typeof(IProjectileManager), new ProjectileManager());
             GameServiceManager.AddService(typeof(IActionManager), new ActionManager());
-            GameServiceManager.AddService(typeof(ILayerManager), new LayerManager("layers.xml", this.Content));
+            GameServiceManager.AddService(typeof(ILayerManager), new LayerManager("layers.xml", Content));
             GameServiceManager.AddService(typeof(IRenderer), renderer);
             GameServiceManager.AddService(typeof(ICameraService), cameraService);
             GameServiceManager.AddService(typeof(ILevelLogicManager), new LevelLogicManager());
 
             //Initialize the GameServices););
-            foreach (IGameService service in GameServiceManager.Services)
+            foreach (var service in GameServiceManager.Services)
             {
                 service.Initialize();
             }
@@ -124,10 +124,10 @@ namespace ExampleGameSHMUP
         {
             particleRenderer.LoadContent(Content);
 
-            PlayerManager manager = (PlayerManager)GameServiceManager.GetService(typeof(PlayerManager));
+            var manager = (PlayerManager)GameServiceManager.GetService(typeof(PlayerManager));
             manager.SetPlayer(LogicalPlayerIndex.One, PlayerIndex.One);
 
-            foreach (IGameService service in GameServiceManager.Services)
+            foreach (var service in GameServiceManager.Services)
             {
                 service.PostInitialize();
             }

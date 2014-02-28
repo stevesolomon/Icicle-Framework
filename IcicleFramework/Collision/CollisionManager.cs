@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using IcicleFramework.Collision.QuadTree;
-using IcicleFramework.Components;
 using IcicleFramework.Components.Collision;
 using IcicleFramework.Entities;
 using IcicleFramework.GameServices;
@@ -80,7 +79,7 @@ namespace IcicleFramework.Collision
 
         public bool SubscribeCollisionEvent(Guid GUID, OnCollisionHandler handler)
         {
-            bool subscribed = false;
+            var subscribed = false;
 
             if (onCollisionEventListeners.ContainsKey(GUID))
             {
@@ -101,7 +100,7 @@ namespace IcicleFramework.Collision
 
         public bool SubscribeCollisionStoppedEvent(Guid GUID, OnCollisionStoppedHandler handler)
         {
-            bool subscribed = false;
+            var subscribed = false;
 
             if (onCollisionStoppedEventListeners.ContainsKey(GUID))
             {
@@ -166,23 +165,7 @@ namespace IcicleFramework.Collision
             currentCollisions[gameObject.GUID].Destroyed = true;
             currentCollisions.Remove(gameObject.GUID);
             movedLastFrame.Remove(gameObject.GUID);
-
-            //foreach (var value in currentCollisions)
-            //{
-            //    foreach (var collision in value.Value.Values)
-            //    {
-            //        if (collision.Parent.GUID == baseComponent.Parent.GUID)
-            //        {
-            //            toRemove.Add(value.Key, collision);
-            //        }
-            //    }
-            //}
-
-            //foreach (var value in toRemove)
-            //{
-            //    currentCollisions[value.Key].Remove(value.Value.Parent.GUID);
-            //}
-
+            
             gameObject.OnMove -= OnMove;
         }
 
@@ -212,11 +195,11 @@ namespace IcicleFramework.Collision
 
         private void NotifyCollision(ICollisionComponent source, ICollisionComponent collider)
         {
-            if (source == null || ((IBaseComponent) source).Parent == null || collider == null || ((IBaseComponent) collider).Parent == null)
+            if (source == null || source.Parent == null || collider == null || (collider).Parent == null)
                 return;
 
-            var sourceGUID = ((IBaseComponent) source).Parent.GUID;
-            var colliderGUID = ((IBaseComponent) collider).Parent.GUID;
+            var sourceGUID = source.Parent.GUID;
+            var colliderGUID = collider.Parent.GUID;
 
             //Notify any listeners of the source that it has collided with something
             if (onCollisionEventListeners.ContainsKey(sourceGUID) && onCollisionEventListeners[sourceGUID] != null)
@@ -233,11 +216,11 @@ namespace IcicleFramework.Collision
 
         private void NotifyCollisionStopped(ICollisionComponent source, ICollisionComponent previousCollider)
         {
-            if (source == null || ((IBaseComponent) source).Parent == null || previousCollider == null || ((IBaseComponent) previousCollider).Parent == null)
+            if (source == null || source.Parent == null || previousCollider == null || previousCollider.Parent == null)
                 return;
 
-            var sourceGUID = ((IBaseComponent) source).Parent.GUID;
-            var colliderGUID = ((IBaseComponent) previousCollider).Parent.GUID;
+            var sourceGUID = source.Parent.GUID;
+            var colliderGUID = previousCollider.Parent.GUID;
 
             //Notify any listeners of the source that it has stopped collided with what it was previously colliding with.
             if (onCollisionStoppedEventListeners.ContainsKey(sourceGUID) && onCollisionStoppedEventListeners[sourceGUID] != null)
@@ -260,8 +243,8 @@ namespace IcicleFramework.Collision
             foreach (var collisionComponent in movedLastFrame.Values)
             {
                 collisionTree.ItemMoved(collisionComponent, 
-                                        new RectangleF(((IBaseComponent) collisionComponent).Parent.LastFramePosition.X,
-                                                       ((IBaseComponent) collisionComponent).Parent.LastFramePosition.Y,
+                                        new RectangleF(collisionComponent.Parent.LastFramePosition.X,
+                                                       collisionComponent.Parent.LastFramePosition.Y,
                                                        collisionComponent.BoundingBox2D.Width,
                                                        collisionComponent.BoundingBox2D.Height));
             }
@@ -293,12 +276,6 @@ namespace IcicleFramework.Collision
 
                 foreach (var oldCollision in collisionList)
                 {
-                    //if (oldCollision.Parent == null || oldCollision.Parent.Destroyed)
-                    //{
-                    //    tempList.Add(oldCollision);
-                    //    continue;
-                   // }
-
                     //If the collision elements are still intersecting then the collision is ongoing.
                     if (collisionList.Source.BoundingBox2D.Intersects(oldCollision.BoundingBox2D))
                     {
