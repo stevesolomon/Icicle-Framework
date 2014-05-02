@@ -4,6 +4,6 @@ namespace IcicleFramework.Pooling
 {
     public interface IPoolable<T> : IDestroyable<T>
     {
-        void Cleanup();
+        void Reallocate();
     }
 }

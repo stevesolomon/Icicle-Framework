@@ -46,15 +46,15 @@ namespace IcicleFramework.GameServices.Factories
 
         public IBehavior GetBehavior(Type type, string templateName = "")
         {
-            var constructor = type.GetConstructor(
-                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                null,
-                new Type[] { },
-                null
-            );
+            //var constructor = type.GetConstructor(
+            //    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+            //    null,
+            //    new Type[] { },
+            //    null
+            //);
 
-            var newComponent = constructor.Invoke(null) as IBehavior;
-            //var newComponent = behaviorPools.New(type);
+            //var newComponent = constructor.Invoke(null) as IBehavior;
+            var newComponent = behaviorPools.New(type);
 
             //If we have a named template then try to find it and copy it into our new behavior.
             if (!string.IsNullOrWhiteSpace(templateName))
@@ -104,8 +104,8 @@ namespace IcicleFramework.GameServices.Factories
                     assembly = temp[0];
                 }
 
-                Type classType = Type.GetType(String.Format("{0},{1}", classAttrib.Value, assembly));
-                string stringInterface = element.Attribute("type").Value;
+                var classType = Type.GetType(String.Format("{0},{1}", classAttrib.Value, assembly));
+                var stringInterface = element.Attribute("type").Value;
 
                 behavior = GetBehavior(classType);
                 behavior.Deserialize(element);
@@ -119,7 +119,7 @@ namespace IcicleFramework.GameServices.Factories
         public bool SaveBehaviorAsTemplate(IBehavior behavior, string templateName, bool replaceExisting = false)
         {
             var key = Helper.GetLookupName(behavior.ConcreteType, templateName);
-            bool saved = false;
+            var saved = false;
 
             if (!templateBehaviors.ContainsKey(key))
             {
@@ -135,7 +135,7 @@ namespace IcicleFramework.GameServices.Factories
             else if (replaceExisting)
             {
                 var template = templateBehaviors[key];
-                template.Cleanup();
+                template.Reallocate();
 
                 behavior.CopyInto(template);
 

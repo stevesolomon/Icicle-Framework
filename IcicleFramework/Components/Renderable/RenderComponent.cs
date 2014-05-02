@@ -164,14 +164,14 @@ namespace IcicleFramework.Components.Renderable
             }
         }
 
-        public override void Cleanup()
+        public override void Reallocate()
         {
             foreach (var renderable in renderables.Values)
                 renderable.Dispose();
 
             renderables.Clear();
 
-            base.Cleanup();
+            base.Reallocate();
         }
 
         public override void CopyInto(IBaseComponent newObject)

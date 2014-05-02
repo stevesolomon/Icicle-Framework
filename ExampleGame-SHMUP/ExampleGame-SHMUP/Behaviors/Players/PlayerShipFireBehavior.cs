@@ -36,11 +36,11 @@ namespace ExampleGameSHMUP.Behaviors.Players
             Parent.FireAction(fireProjAction, ParentGameObject);
         }
 
-        public override void Cleanup()
+        public override void Reallocate()
         {
             player = null;
 
-            base.Cleanup();
+            base.Reallocate();
         }
     }
 }

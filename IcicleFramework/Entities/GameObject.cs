@@ -371,14 +371,14 @@ namespace IcicleFramework.Entities
 
         #region IPoolable Methods
 
-        public void Cleanup()
+        public void Reallocate()
         {
             Active = false;
             Destroyed = false;
             GUID = new Guid();
 
             foreach (var component in components.Values)
-                component.Cleanup();
+                component.Reallocate();
         }
 
         #endregion

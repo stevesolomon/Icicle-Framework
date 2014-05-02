@@ -73,12 +73,12 @@ namespace IcicleFramework.Components.Health
                 CurrHealth = MaxHealth;
         }
 
-        public override void Cleanup()
+        public override void Reallocate()
         {
             OnHealthChanged = null;
             OnHealthDepleted = null;
 
-            base.Cleanup();
+            base.Reallocate();
         }
 
         public override void CopyInto(IBaseComponent newObject)

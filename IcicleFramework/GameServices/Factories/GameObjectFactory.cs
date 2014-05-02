@@ -178,7 +178,7 @@ namespace IcicleFramework.GameServices.Factories
 
         public override void Update(GameTime gameTime)
         {
-            rawPool.CleanUp();
+            //rawPool.CleanUp();
 
             base.Update(gameTime);
         }

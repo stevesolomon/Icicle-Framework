@@ -38,12 +38,12 @@ namespace ExampleGameSHMUP.Behaviors.Projectiles
             base.Deserialize(element);
         }
 
-        public override void Cleanup()
+        public override void Reallocate()
         {
             MoveSpeed = 0.0f;
             InitialDirection = Vector2.Zero;
 
-            base.Cleanup();
+            base.Reallocate();
         }
 
         public override void CopyInto(IBehavior newObject)

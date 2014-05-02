@@ -141,25 +141,43 @@ namespace IcicleFramework.Components.Behaviors
             }
         }
 
-        public override void Cleanup()
+        public override void Reallocate()
         {
-          //  foreach (var behavior in behaviors)
-           // {
-           //     behavior.Value.Cleanup();
-           // }
+            //foreach (var behavior in behaviors)
+            //{
+            //    behavior.Value.Reallocate();
+            //}
 
-          //  foreach (var behavior in behaviorsToRemove)
-          //  {
-          //      behavior.Cleanup();
-          //  }
+            //foreach (var behavior in behaviorsToRemove)
+            //{
+            //    behavior.Reallocate();
+            //}
 
-            behaviors.Clear();
-            behaviorsToRemove.Clear();
+            //behaviors.Clear();
+            //behaviorsToRemove.Clear();
             stateComponent = null;
             behaviorFactory = null;
             actionManager = null;
 
-            base.Cleanup();
+            base.Reallocate();
+        }
+
+        public override void Destroy()
+        {
+            foreach (var behavior in behaviors)
+            {
+                behavior.Value.Destroy();
+            }
+
+            foreach (var behavior in behaviorsToRemove)
+            {
+                behavior.Destroy();
+            }
+
+            behaviors.Clear();
+            behaviorsToRemove.Clear();
+
+            base.Destroy();
         }
 
         public override void CopyInto(IBaseComponent newObject)
@@ -178,16 +196,6 @@ namespace IcicleFramework.Components.Behaviors
             }
 
             base.CopyInto(newObject);
-        }
-
-        public override void Destroy()
-        {
-            foreach (var behavior in behaviors.Values)
-            {
-                behavior.Destroy();
-            }
-
-            base.Destroy();
         }
     }
 }

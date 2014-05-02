@@ -23,12 +23,12 @@ namespace ExampleGameSHMUP.Behaviors
             base.CopyInto(newObject);
         }
 
-        public override void Cleanup()
+        public override void Reallocate()
         {
             TimeSinceLastShot = 0.0f;
             TimeBetweenShots = 0.0f;
 
-            base.Cleanup();
+            base.Reallocate();
         }
 
         public override void Deserialize(XElement element)

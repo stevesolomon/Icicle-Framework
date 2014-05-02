@@ -48,6 +48,9 @@ namespace IcicleFramework.Components
 
         public virtual void Destroy()
         {
+            Destroyed = true;
+            Active = false;
+
             if (OnDestroyed != null)
             {
                 OnDestroyed(this);
@@ -56,17 +59,9 @@ namespace IcicleFramework.Components
 
         public virtual void Reallocate()
         {
-            if (Destroyed)
-                Reallocate();
-        }
-
-        public virtual void Cleanup()
-        {
-            Destroyed = false;
             Active = false;
             Parent = null;
-            InterfaceType = null;
-            ConcreteType = null;
+            Destroyed = false;
         }
     }
 }

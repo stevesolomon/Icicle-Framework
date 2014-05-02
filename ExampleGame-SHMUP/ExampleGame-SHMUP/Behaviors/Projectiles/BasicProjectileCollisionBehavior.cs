@@ -47,13 +47,13 @@ namespace ExampleGameSHMUP.Behaviors.Projectiles
             Parent.FireAction(selfDestroy, this.ParentGameObject);
         }
 
-        public override void Cleanup()
+        public override void Destroy()
         {
             CollisionComponent.OnCollision -= Collided;
             CollisionComponent = null;
             DamageComponent = null;
 
-            base.Cleanup();
+            base.Destroy();
         }
     }
 }

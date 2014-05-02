@@ -99,7 +99,7 @@ namespace IcicleFramework.Actions
 
         #region IPoolable Methods
 
-        public virtual void Cleanup()
+        public virtual void Reallocate()
         {
             target = null;
             Parent = null;

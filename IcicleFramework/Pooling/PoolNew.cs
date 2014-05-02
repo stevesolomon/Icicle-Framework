@@ -33,7 +33,7 @@ namespace IcicleFramework.Pooling
 
         public T New()
         {
-            var newItem =  GetNewItem();
+            var newItem = GetNewItem();
 
             newItem.OnDestroyed += OnItemDestroyed;
 
@@ -42,6 +42,8 @@ namespace IcicleFramework.Pooling
 
         private void OnItemDestroyed(T sender)
         {
+            sender.OnDestroyed -= OnItemDestroyed;
+
             allocatedItems.Remove(sender);
             freeItems.Enqueue(sender);
         }
@@ -59,8 +61,6 @@ namespace IcicleFramework.Pooling
                     var item = allocatedItems[i];
                     allocatedItems.RemoveAt(i);
 
-                    item.Cleanup();
-
                     freeItems.Enqueue(item);
                 }
             }
@@ -71,7 +71,12 @@ namespace IcicleFramework.Pooling
             if (freeItems.Count == 0)
                 AllocateNewItems(PoolSize * 2);
 
-            return freeItems.Dequeue();
+            var item = freeItems.Dequeue();
+            item.Reallocate();
+
+            allocatedItems.Add(item);
+
+            return item;
         }
 
         protected void AllocateNewItems(int count)
@@ -80,6 +85,8 @@ namespace IcicleFramework.Pooling
             {
                 freeItems.Enqueue(Constructor.Invoke(null) as T);
             }
+
+            PoolSize = count;
         }
     }
 }

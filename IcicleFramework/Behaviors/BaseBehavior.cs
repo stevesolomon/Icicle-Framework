@@ -56,14 +56,16 @@ namespace IcicleFramework.Behaviors
             {
                 OnDestroyed(this);
             }
+
+            Destroyed = true;
+            Active = false;
         }
 
         #region IPoolable Methods
 
-        public virtual void Cleanup()
+        public virtual void Reallocate()
         {
             Destroyed = false;
-            Active = false;
             Parent = null;
             Name = "";
         }

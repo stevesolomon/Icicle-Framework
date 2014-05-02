@@ -90,14 +90,14 @@ namespace IcicleFramework.Components.Movement
             MoveVelocity = parsedVec;
         }
 
-        public override void Cleanup()
+        public override void Reallocate()
         {
             Velocity = Vector2.Zero;
             VelocityDampingPercent = Vector2.Zero;
             MaxVelocity = Vector2.Zero;
             MoveVelocity = Vector2.Zero;
 
-            base.Cleanup();
+            base.Reallocate();
         }
 
         public override void CopyInto(IBaseComponent newObject)

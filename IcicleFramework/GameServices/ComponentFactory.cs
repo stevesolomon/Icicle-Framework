@@ -62,16 +62,16 @@ namespace IcicleFramework.GameServices
 
         public IBaseComponent GetComponent(Type type)
         {
-            var constructor = type.GetConstructor(
-                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                null,
-                new Type[] { },
-                null
-            );
+            //var constructor = type.GetConstructor(
+            //    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+            //    null,
+            //    new Type[] { },
+            //    null
+            //);
 
-            //var component = componentPool.New(type);
+            var component = componentPool.New(type);
 
-            var component = constructor.Invoke(null) as IBaseComponent;
+            //var component = constructor.Invoke(null) as IBaseComponent;
             
             return component;
         }

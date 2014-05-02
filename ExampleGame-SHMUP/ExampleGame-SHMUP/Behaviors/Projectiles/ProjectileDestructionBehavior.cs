@@ -32,11 +32,12 @@ namespace ExampleGameSHMUP.Behaviors.Projectiles
             }
         }
 
-        public override void Cleanup()
+        public override void Destroy()
         {
             CameraManager = null;
             ParentGameObject.OnMove -= OnMove;
-            base.Cleanup();
+
+            base.Destroy();
         }
     }
 }

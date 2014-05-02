@@ -94,7 +94,7 @@ namespace IcicleFramework.Collision
             }
         }
 
-        public virtual void Cleanup()
+        public virtual void Reallocate()
         {
             Destroyed = false;
             Data = default(T);
